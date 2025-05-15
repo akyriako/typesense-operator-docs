@@ -43,6 +43,14 @@ Yes—TyKO is currently in beta.
 
 Kindly review the [Disclaimer](/docs/getting-started#disclaimer) carefully once more. (aaaargh!!!)
 
+### What font sorcery is this?
+
+It's [JetBrains Mono](https://www.jetbrains.com/lp/mono/), the opensource typeface by JetBrains.
+
+### Where did you dig up the landing page illustrations from?
+
+Illustrations are from [unDraw](https://undraw.co/).
+
 ### Can we meet Tyko, the mascot?
 
 Nope-that can't do, he's a very busy fella!
