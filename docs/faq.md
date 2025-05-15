@@ -16,7 +16,7 @@ There are a bunch of options:
 ### Why was my feature request not implemented?
 
 TyKO is a vanilla (yet opinionated) way to deploy highly-available, self-healing Typesense clusters on Kubernetes (of any kind and flavor).
-And that's all what it aims to deliver. Your feature request might have not been implemented because:
+And that's all it aims to deliver. Your feature request might have not been implemented because:
 
 * was diverting from the objective of just managing the lifecycle of the cluster itself and nothing more,
 * was rather a corner-case of your own landscape that needed individual adjusting (we try to keep it vanilla),
@@ -25,7 +25,7 @@ And that's all what it aims to deliver. Your feature request might have not been
 ### Why was my pull request not accepted?
 
 TyKO is a vanilla (yet opinionated) way to deploy highly-available, self-healing Typesense clusters on Kubernetes (of any kind and flavor).
-And that's all what it aims to deliver. Your pull request might have not been accepted because:
+And that's all it aims to deliver. Your pull request might have not been accepted because:
 
 * was diverting from the objective of just managing the lifecycle of the cluster itself and nothing more,
 * was rather a corner-case of your own landscape that needed individual adjusting (we try to keep it vanilla),
