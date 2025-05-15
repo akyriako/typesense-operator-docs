@@ -29,7 +29,7 @@ And that's all it aims to deliver. Your pull request might have not been accepte
 
 * was diverting from the objective of just managing the lifecycle of the cluster itself and nothing more,
 * was rather a corner-case of your own landscape that needed individual adjusting (we try to keep it vanilla),
-* something was off (code quality, oversimplicity or overcomplexity of the solution, overall understanding (or lack of it) of the code base).
+* something was off (code quality, oversimplicity or overcomplexity of the solution, overall understanding -or lack of it- of the code base).
 
 ### Is there any Slack or Discord channel for support?
 
