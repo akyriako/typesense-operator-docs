@@ -3,6 +3,11 @@ release:
   permalink: /release
   description: GitHub Release
 
+announcement:
+  label: announcement
+  permalink: /announcement
+  description: Announcement
+
 # hello:
 #   label: Hello
 #   permalink: /hello
