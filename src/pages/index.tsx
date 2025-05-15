@@ -59,8 +59,8 @@ export default function Home(): ReactNode {
   const {siteConfig} = useDocusaurusContext();
   return (
     <Layout
-      title={`${siteConfig.title} Docs`}
-      description="TyKO, your turnkey Typesense Kubernetes Operator <head />">
+      title={`Typesense Kubernetes Operator Docs`}
+      description="TyKO, your turnkey Typesense Kubernetes Operator">
       <HomepageHeader />
       <main>
         <HomepageFeatures />
