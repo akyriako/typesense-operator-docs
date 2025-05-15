@@ -1,0 +1,22 @@
+/* imageText.module.css */
+
+.imageTextSection {
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+  
+  .imageWrapper {
+    flex: 0 0 17%;      /* ← shrink from 20% down to 10% */
+  }
+  
+  .imageWrapper img {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+  
+  .textWrapper {
+    flex: 1;
+  }
+  

@@ -1,0 +1,42 @@
+# yangshun:
+#   name: Yangshun Tay
+#   title: Front End Engineer @ Facebook
+#   url: https://github.com/yangshun
+#   image_url: https://github.com/yangshun.png
+#   page: true
+#   socials:
+#     x: yangshunz
+#     github: yangshun
+
+# slorber:
+#   name: Sébastien Lorber
+#   title: Docusaurus maintainer
+#   url: https://sebastienlorber.com
+#   image_url: https://github.com/slorber.png
+#   page:
+#     # customize the url of the author page at /blog/authors/<permalink>
+#     permalink: '/all-sebastien-lorber-articles'
+#   socials:
+#     x: sebastienlorber
+#     linkedin: sebastienlorber
+#     github: slorber
+#     newsletter: https://thisweekinreact.com
+
+akyriako:
+  name: Kyriakos Akriotis
+  title: TyKO Maintainer
+  url: https://www.medium.com/akyriako
+  image_url: https://avatars.githubusercontent.com/u/3920167?v=4
+  page:
+    # customize the url of the author page at /blog/authors/<permalink>
+    permalink: '/all-akyriako-articles'
+  socials:
+    linkedin: akyriako
+    github: akyriako
+
+tykobot:
+  name: Tyko
+  title: aka the "litte-thunder" bot
+  url: https://github.com/akyriako
+  image_url: https://nextcloud.rhynosaur.com/apps/files_sharing/publicpreview/iREqToGn3kdJD8w?file=/&fileId=3529&x=1920&y=1080&a=true&etag=d33822fd638ceebcc1cbd578b7352393
+  page: true
