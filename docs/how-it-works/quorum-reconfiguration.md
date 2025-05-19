@@ -30,7 +30,7 @@ data:
 
 ### 2. Configuring Nodes List
 
-A `NodesListConfigMap` is created, containing the endpoints of the cluster nodes as a single concatenated string in its data field. During each reconciliation loop, the operator identifies any changes in endpoints and updates the `NodesListConfigMap`. This `NodesListConfigMap` is mounted in every `Pod` at the path where raft expects the quorum configuration, ensuring quorum configuration stays always updated. The endpoint of each `Pod` the headless service adheres to the following naming convention:  `{cluster-name}-sts-{pod-index}.{cluster-name}-sts-svc`.
+A `ConfigMap`, named `NodesListConfigMap`, is created, containing the endpoints of the cluster nodes as a single concatenated string in its data field. During each reconciliation loop, the operator identifies any changes in endpoints and updates the `ConfigMap`. This `ConfigMap` is mounted in every `Pod` at the path where raft expects the quorum configuration, ensuring quorum configuration stays always updated. The endpoint of each `Pod` the headless service adheres to the following naming convention:  `{cluster-name}-sts-{pod-index}.{cluster-name}-sts-svc`.
 
 :::important
 
@@ -45,11 +45,11 @@ The operator will create a headless `Service` required in the next steps for the
 
 ### 4. Creating a StatefulSet
 
-A `StatefulSet` will be provisioned by the operator as next step of the reconciliation loop. The quorum configuration stored in the `NodesListConfigMap` is mounted as a volume in each `Pod` under `/usr/share/typesense/nodelist`. No `Pod` restart is necessary when the `NodesListConfigMap` changes, as the operator constanly watches for changes and accordingly adjusts the contents of this file. Raft automatically detects and applies the updates.
+A `StatefulSet` will be provisioned by the operator as next step of the reconciliation loop. The quorum configuration stored in the `NodesListConfigMap` is mounted as a volume in each `Pod` under `/usr/share/typesense/nodelist`. No `Pod` restart is necessary when the `NodesListConfigMap` data changes, as the operator constanly watches for changes and accordingly adjusts the contents of this file. Raft automatically detects and applies the updates.
 
 ### 5. Creating an Ingress
 
-*Optionally*, an `nginx:alpine` workload is provisioned as a `Deployment` and exposed via an `Ingress`, in order to publish safely the Typesense REST/API endpoint outside the boundaries of your Kubernetes cluster, **only** to selected **referrers**. The configuration of the nginx workload is stored in a `ConfigMap`.
+*Optionally*, an `nginx:alpine` workload is provisioned as a `Deployment` and exposed via an `Ingress`, in order to publish safely the Typesense REST/API endpoint outside the boundaries of your Kubernetes cluster, **only** to selected **referers**. The configuration of the nginx workload is stored in a `ConfigMap`.
 
 ### 6. Creating DocSearch scrapers
 

@@ -7,7 +7,7 @@ sidebar_position: 3
 # CRDs
 
 :::important
-The operator is bundled with the Custom Resource Definitions(CRDs) and cannot be deployed separately. Updating the operator will automatically update the respective CRDs.
+The operator is bundled with the Custom Resource Definitions (CRDs) and cannot be deployed separately. Updating the operator will automatically update the respective CRDs.
 :::
 
 ## TypesenseCluster
@@ -106,7 +106,7 @@ If you need to scrape a target that requires authentication, you can add the aut
 | resources | resource request & limit                  | X        | _check specs_                                  |
 
 :::tip
-If you've provisioned Prometheus via **kube-prometheus-stack**, you can find the corresponding `release` value of your Prometheus instance by checking the labels of the operator pod e.g:
+If you've provisioned Prometheus via **kube-prometheus-stack**, you can find the corresponding `release` value of your Prometheus instance by checking the labels of the Prometheus operator pod e.g:
 
 ```shell
 kubectl describe pod {kube-prometheus-stack-operator-pod} -n {kube-prometheus-stack-namespace}
