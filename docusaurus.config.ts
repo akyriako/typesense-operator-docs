@@ -74,7 +74,7 @@ const config: Config = {
     navbar: {
       title: 'Typesense Kubernetes Operator',
       logo: {
-        alt: 'My Site Logo',
+        alt: 'Typesense Kubernetes Operator',
         src: 'img/tyko-logo.png',
       },
       items: [
@@ -89,6 +89,12 @@ const config: Config = {
         //   type: 'docsVersionDropdown',
         //   position: 'right'
         // },
+        { 
+          href: 'https://github.com/akyriako/typesense-operator/discussions', 
+          position: 'right',
+          className: 'navbar--discussions-link',
+          "aria-label": 'GitHub-Discussions',
+        },
         { 
           href: 'https://github.com/akyriako/typesense-operator', 
           position: 'right',
