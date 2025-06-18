@@ -49,7 +49,7 @@ A `StatefulSet` will be provisioned by the operator as next step of the reconcil
 
 ### 5. Creating an Ingress
 
-*Optionally*, an `nginx:alpine` workload is provisioned as a `Deployment` and exposed via an `Ingress`, in order to publish safely the Typesense REST/API endpoint outside the boundaries of your Kubernetes cluster, **only** to selected **referers**. The configuration of the nginx workload is stored in a `ConfigMap`.
+*Optionally*, an nginx workload (if no explicit image is configured, it defaults to `nginx:alpine`) is provisioned as a `Deployment` and exposed via an `Ingress`, in order to publish safely the Typesense REST/API endpoint outside the boundaries of your Kubernetes cluster, **only** to selected **referers**. The configuration of the nginx workload is stored in a `ConfigMap`.
 
 ### 6. Creating DocSearch scrapers
 

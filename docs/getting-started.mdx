@@ -40,10 +40,11 @@ Key features of Typesense Kubernetes Operator include:
   
     It handles aspects as:
      - bootstrapping Typesense's Admin API Key creation as a `Secret`.
-     - deploying Typesense as a `StatefulSet`, each `Pod` consists of two containers:
+     - deploying Typesense as a `StatefulSet`, each `Pod` consists of three containers:
        - the *Typesense node* itself based on the image provided in the specs,
-       - the *Typesense node metrics exporter* (as a sidecar), based on the image provided in the `spec.metricsSpec`.
-     - provisioning Typesense services (a headless & a discovery `Service`),
+       - the *Typesense node metrics exporter* (as a sidecar), based on the image provided in the `spec.metricsSpec`,
+       - the _Typesense cluster aggregated healthcheck_ (as a sidecar), exposed on port `8808` (non-configurable).
+     - provisioning Typesense services (headless, discovery and healthcheck `Services`),
      - actively discovering and updating Typesense's nodes list (quorum configuration mounted as `ConfigMap`).
      - placing claims for Typesense `PersistentVolumes`.
      - *optionally* exposing Typesense API endpoint via an `Ingress`.
