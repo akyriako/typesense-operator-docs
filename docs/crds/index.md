@@ -16,27 +16,27 @@ Typesense Kubernetes Operator is controlling the lifecycle of multiple Typesense
 
 ### TypesenseClusterSpec
 
-| Name                          | Description                                                            | Optional | Default       |
-|-------------------------------|------------------------------------------------------------------------|----------|---------------|
-| image                         | Typesense image                                                        |          |               |
-| adminApiKey                   | Reference to the `Secret` to be used for bootstrap                     | X        |               |
-| replicas                      | Size of the cluster (allowed 1, 3, 5 or 7)                             |          | 3             |
-| apiPort                       | REST/API port                                                          |          | 8108          |
-| peeringPort                   | Peering port                                                           |          | 8107          |
-| resetPeersOnError             | automatic reset of peers on error                                      |          | true          |
-| enableCors                    | enables CORS                                                           | X        | false         |
-| corsDomains                   | comma separated list of domains allowed for CORS                       | X        |               |
-| resources                     | resource request & limit                                               | X        | _check specs_ |
-| affinity                      | group of affinity scheduling rules                                     | X        |               |
-| nodeSelector                  | node selection constraint                                              | X        |               |
-| tolerations                   | schedule pods with matching taints                                     | X        |               |
-| additionalServerConfiguration | a reference to a `ConfigMap` holding extra configuration      | X        |               |
-| storage                       | check `StorageSpec` [below](#storagespec-optional)                                              |          |               |
-| ingress                       | check `IngressSpec` [below](#ingressspec-optional)                                              | X        |               |
-| scrapers                      | array of `DocSearchScraperSpec`; check below                           | X        |               |
-| metrics                       | check `MetricsSpec` below                                              | X        |               |
-| topologySpreadConstraints     | how to spread a  group of pods across topology domains                 | X        |               |
-| incrementalQuorumRecovery     | add nodes gradually to the statefulset while recovering                | X        | false         |
+| Name                          | Description                                              | Optional | Default       |
+| ----------------------------- | -------------------------------------------------------- | -------- | ------------- |
+| image                         | Typesense image                                          |          |               |
+| adminApiKey                   | Reference to the `Secret` to be used for bootstrap       | X        |               |
+| replicas                      | Size of the cluster (allowed 1, 3, 5 or 7)               |          | 3             |
+| apiPort                       | REST/API port                                            |          | 8108          |
+| peeringPort                   | Peering port                                             |          | 8107          |
+| resetPeersOnError             | automatic reset of peers on error                        |          | true          |
+| enableCors                    | enables CORS                                             | X        | false         |
+| corsDomains                   | comma separated list of domains allowed for CORS         | X        |               |
+| resources                     | resource request & limit                                 | X        | _check specs_ |
+| affinity                      | group of affinity scheduling rules                       | X        |               |
+| nodeSelector                  | node selection constraint                                | X        |               |
+| tolerations                   | schedule pods with matching taints                       | X        |               |
+| additionalServerConfiguration | a reference to a `ConfigMap` holding extra configuration | X        |               |
+| storage                       | check `StorageSpec` [below](#storagespec-optional)       |          |               |
+| ingress                       | check `IngressSpec` [below](#ingressspec-optional)       | X        |               |
+| scrapers                      | array of `DocSearchScraperSpec`; check below             | X        |               |
+| metrics                       | check `MetricsSpec` below                                | X        |               |
+| topologySpreadConstraints     | how to spread a  group of pods across topology domains   | X        |               |
+| incrementalQuorumRecovery     | add nodes gradually to the statefulset while recovering  | X        | false         |
 
 :::note
 
@@ -49,27 +49,39 @@ Typesense Kubernetes Operator is controlling the lifecycle of multiple Typesense
 ### StorageSpec (optional)
 
 | Name             | Description                 | Optional | Default  |
-|------------------|-----------------------------|----------|----------|
+| ---------------- | --------------------------- | -------- | -------- |
 | size             | Size of the underlying `PV` | X        | 100Mi    |
 | storageClassName | `StorageClass` to be used   |          | standard |
 
 ### IngressSpec (optional)
 
-| Name               | Description                          | Optional | Default       |
-|--------------------|--------------------------------------|----------|---------------|
-| referer            | FQDN allowed to access reverse proxy | X        |               |
-| HttpDirectives     | Nginx Proxy HttpDirectives           | X        |               |
-| serverDirectives   | Nginx Proxy serverDirectives         | X        |               |
-| locationDirectives | Nginx Proxy locationDirectives       | X        |               |
-| host               | Ingress Host                         |          |               |
-| clusterIssuer      | cert-manager `ClusterIssuer`         | X        |               |
-| tlsSecretName      | TLS secret name to use               | X        |               |
-| ingressClassName   | Ingress to be used                   |          |               |
-| annotations        | User-Defined annotations             | X        |               |
-| resources          | resource request & limit             | X        | _check specs_ |
+| Name                   | Description                              | Optional | Default                  |
+| ---------------------- | ---------------------------------------- | -------- | ------------------------ |
+| image                  | Nginx image to use                       | X        | nginx:alpine             |
+| referer                | FQDN allowed to access reverse proxy     | X        |                          |
+| HttpDirectives         | Nginx Proxy HttpDirectives               | X        |                          |
+| serverDirectives       | Nginx Proxy serverDirectives             | X        |                          |
+| locationDirectives     | Nginx Proxy locationDirectives           | X        |                          |
+| host                   | Ingress Host                             |          |                          |
+| path                   | HTTP Ingress Path                        | X        | /                        |
+| pathType               | interpretation of the path matching      | X        | `ImplementationSpecific` |
+| clusterIssuer          | cert-manager `ClusterIssuer`             | X        |                          |
+| tlsSecretName          | TLS secret name to use                   | X        |                          |
+| ingressClassName       | Ingress to be used                       |          |                          |
+| annotations            | User-Defined annotations                 | X        |                          |
+| resources              | resource request & limit                 | X        | _check specs_            |
+| readOnlyRootFilesystem | check `ReadOnlyRootFilesystemSpec` below | X        | _check specs_            |
+
+### ReadOnlyRootFilesystemSpec (optional)
+
+| Name            | Description                        | Optional | Default                                         |
+|-----------------|------------------------------------|----------|-------------------------------------------------|
+| securityContext | security conf for the container    | X        | `SecurityContext{ReadOnlyRootFilesystem: true}` |
+| volumes         | additional volumes                 | X        |                                                 |
+| volumeMounts    | additional mounts in the container | X        |                                                 |
 
 :::note
-This feature makes use of the existence of [cert-manager](https://cert-manager.io/) in the cluster, but **does not** actively enforce it with an error. If no clusterIssuer is specified a valid certificate must be stored in a secret and the secret name must be provided in the tlsSecretName config. 
+This feature makes use of the existence of [cert-manager](https://cert-manager.io/) in the cluster, but **does not** actively enforce it with an error. If no clusterIssuer is specified a valid certificate must be stored in a secret and the secret name must be provided in the tlsSecretName config.
 
 If you are targeting [Open Telekom Cloud](https://www.open-telekom-cloud.com/en), you might be interested in provisioning additionally the designated DNS solver webhook for Open Telekom Cloud. You can find it [here](https://github.com/akyriako/cert-manager-webhook-opentelekomcloud).
 :::
@@ -85,7 +97,7 @@ It is highly recommended, from this operator's perspective, to always expose Typ
 ### DocSearchScraperSpec (optional)
 
 | Name              | Description                                          | Optional | Default |
-|-------------------|------------------------------------------------------|----------|---------|
+| ----------------- | ---------------------------------------------------- | -------- | ------- |
 | name              | name of the scraper                                  |          |         |
 | image             | container image to use                               |          |         |
 | config            | config to use                                        |          |         |
@@ -98,12 +110,12 @@ If you need to scrape a target that requires authentication, you can add the aut
 
 ### MetricsSpec (optional)
 
-| Name      | Description                               | Optional | Default                                        |
-|-----------|-------------------------------------------|----------|------------------------------------------------|
+| Name      | Description                               | Optional | Default                                                                                                     |
+| --------- | ----------------------------------------- | -------- | ----------------------------------------------------------------------------------------------------------- |
 | image     | container image to use                    | X        | [akyriako78/typesense-prometheus-exporter](https://github.com/akyriako/typesense-prometheus-exporter):0.1.7 |
-| release   | Prometheus release to become a target of  |          |                                                |
-| interval  | interval in _seconds_ between two scrapes | X        | 15                                             |
-| resources | resource request & limit                  | X        | _check specs_                                  |
+| release   | Prometheus release to become a target of  |          |                                                                                                             |
+| interval  | interval in _seconds_ between two scrapes | X        | 15                                                                                                          |
+| resources | resource request & limit                  | X        | _check specs_                                                                                               |
 
 :::tip
 If you've provisioned Prometheus via **kube-prometheus-stack**, you can find the corresponding `release` value of your Prometheus instance by checking the labels of the Prometheus operator pod e.g:
@@ -133,14 +145,14 @@ release=promstack
 ### TypesenseClusterStatus
 
 | Name       | Description                                                                        |
-|------------|------------------------------------------------------------------------------------|
-| phase      | Typesense Cluster/Controller Operational Phase                                     |       
-| conditions | `metav1.Condition`s related to the outcome of the reconciliation (see table below) | 
+| ---------- | ---------------------------------------------------------------------------------- |
+| phase      | Typesense Cluster/Controller Operational Phase                                     |
+| conditions | `metav1.Condition`s related to the outcome of the reconciliation (see table below) |
 
 #### Conditions Summary
 
 | Condition      | Value | Reason                     | Description                                                |
-|----------------|-------|----------------------------|------------------------------------------------------------|
+| -------------- | ----- | -------------------------- | ---------------------------------------------------------- |
 | ConditionReady | true  | QuorumReady                | Cluster is Operational                                     |
 |                | false | QuorumNotReady             | Cluster is not Operational                                 |
 |                | false | QuorumNotReadyWaitATerm    | Cluster is not Operational; Waits a Terms                  |
