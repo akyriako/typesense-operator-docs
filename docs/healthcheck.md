@@ -4,10 +4,10 @@ sidebar_position: 3
 
 # Health Check
 
-Each Typesense node is deployed as a Kubernetes Pod and includes three containers:
+Each Typesense node is deployed as a Kubernetes `Pod` and includes three containers:
 
-1. **Typesense server** – the actual Typesense node
-2. **Metrics exporter** – a sidecar that exposes Prometheus-style metrics for each node
+1. **Typesense server** – the actual Typesense node.
+2. **Metrics exporter** – a sidecar based on [typesense-prometheus-exporter](https://github.com/akyriako/typesense-prometheus-exporter) that exposes Prometheus-style metrics for each node via a `PodMonitor` resource.
 3. **Cluster healthcheck** – a sidecar based on [typesense-healthcheck](https://github.com/akyriako/typesense-healthcheck) that aggregates the health of all nodes, offering a REST/JSON endpoint and a built-in web UI to monitor cluster and node status in real time.
 
 The *typesense-healthcheck* sidecar aggregates and reports the health of all nodes in a Typesense cluster. It provides both Kubernetes-ready endpoints and a built-in web UI for real-time status visualization.
@@ -117,14 +117,14 @@ The library ships with an interactive, single-page monitoring UI built on Vue.js
 
 ## Configuration
 
-| Env Var                | Type   | Default                      | Required | Description                                          |
+| Variable               | Type   | Default                      | Required | Description                                          |
 | ---------------------- | ------ | ---------------------------- | -------- | ---------------------------------------------------- |
 | LOG_LEVEL              | int    | `0`                          | No       | Log level                                            |
 | CLUSTER_NAMESPACE      | string | `default`                    | No       | K8s namespace where your Typesense StatefulSet lives |
 | TYPESENSE_API_KEY      | string | —                            | Yes      | API key for accessing each Typesense node            |
 | TYPESENSE_PROTOCOL     | string | `http`                       | No       | Protocol for Typesense API (`http` or `https`)       |
-| TYPESENSE_API_PORT     | uint   | `8108`                       | No       | Port for Typesense HTTP API                          |
-| TYPESENSE_PEERING_PORT | uint   | `8107`                       | No       | Port for Typesense Raft peering service              |
+| TYPESENSE_API_PORT     | uint   | `8108`                       | No       | Port for Typesense REST/API Port                     |
+| TYPESENSE_PEERING_PORT | uint   | `8107`                       | No       | Port for Typesense Raft Peering Port                 |
 | HEALTHCHECK_PORT       | uint   | `8808`                       | No       | Port on which this healthcheck sidecar listens       |
 | TYPESENSE_NODES        | string | `/usr/share/typesense/nodes` | No       | Path for Typesense Raft nodes list                   |
 
