@@ -35,6 +35,7 @@ Typesense Kubernetes Operator is controlling the lifecycle of multiple Typesense
 | ingress                       | check `IngressSpec` [below](#ingressspec-optional)       | X        |               |
 | scrapers                      | array of `DocSearchScraperSpec`; check below             | X        |               |
 | metrics                       | check `MetricsSpec` below                                | X        |               |
+| healthcheck                   | check `HealthCheckSpec` below                            | X        |               |
 | topologySpreadConstraints     | how to spread a  group of pods across topology domains   | X        |               |
 | incrementalQuorumRecovery     | add nodes gradually to the statefulset while recovering  | X        | false         |
 
@@ -75,7 +76,7 @@ Typesense Kubernetes Operator is controlling the lifecycle of multiple Typesense
 ### ReadOnlyRootFilesystemSpec (optional)
 
 | Name            | Description                        | Optional | Default                                         |
-|-----------------|------------------------------------|----------|-------------------------------------------------|
+| --------------- | ---------------------------------- | -------- | ----------------------------------------------- |
 | securityContext | security conf for the container    | X        | `SecurityContext{ReadOnlyRootFilesystem: true}` |
 | volumes         | additional volumes                 | X        |                                                 |
 | volumeMounts    | additional mounts in the container | X        |                                                 |
@@ -141,6 +142,13 @@ release=promstack
 ```
 
 :::
+
+### HealthCheckSpec (optional)
+
+| Name      | Description                               | Optional | Default                                                                                                     |
+| --------- | ----------------------------------------- | -------- | ----------------------------------------------------------------------------------------------------------- |
+| image     | container image to use                    | X        | [akyriako78/typesense-healthcheck](https://github.com/akyriako/typesense-healthcheck):0.1.7 |
+| resources | resource request & limit                  | X        | _check specs_                                                                                               |
 
 ### TypesenseClusterStatus
 
