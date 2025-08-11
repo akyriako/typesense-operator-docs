@@ -56,22 +56,22 @@ Typesense Kubernetes Operator is controlling the lifecycle of multiple Typesense
 
 ### IngressSpec (optional)
 
-| Name                   | Description                              | Optional | Default                  |
-| ---------------------- | ---------------------------------------- | -------- | ------------------------ |
-| image                  | Nginx image to use                       | X        | nginx:alpine             |
-| referer                | FQDN allowed to access reverse proxy     | X        |                          |
-| HttpDirectives         | Nginx Proxy HttpDirectives               | X        |                          |
-| serverDirectives       | Nginx Proxy serverDirectives             | X        |                          |
-| locationDirectives     | Nginx Proxy locationDirectives           | X        |                          |
-| host                   | Ingress Host                             |          |                          |
-| path                   | HTTP Ingress Path                        | X        | /                        |
-| pathType               | interpretation of the path matching      | X        | `ImplementationSpecific` |
-| clusterIssuer          | cert-manager `ClusterIssuer`             | X        |                          |
-| tlsSecretName          | TLS secret name to use                   | X        |                          |
-| ingressClassName       | Ingress to be used                       |          |                          |
-| annotations            | User-Defined annotations                 | X        |                          |
-| resources              | resource request & limit                 | X        | _check specs_            |
-| readOnlyRootFilesystem | check `ReadOnlyRootFilesystemSpec` below | X        | _check specs_            |
+| Name                   | Description                              | Optional | Default                                         |
+| ---------------------- | ---------------------------------------- | -------- | ----------------------------------------------- |
+| image                  | Nginx image to use                       | X        | nginx:alpine                                    |
+| referer                | FQDN allowed to access reverse proxy     | X        | empty or the value of `spec.corsDomains` if set |
+| HttpDirectives         | Nginx Proxy HttpDirectives               | X        |                                                 |
+| serverDirectives       | Nginx Proxy serverDirectives             | X        |                                                 |
+| locationDirectives     | Nginx Proxy locationDirectives           | X        |                                                 |
+| host                   | Ingress Host                             |          |                                                 |
+| path                   | HTTP Ingress Path                        | X        | /                                               |
+| pathType               | interpretation of the path matching      | X        | `ImplementationSpecific`                        |
+| clusterIssuer          | cert-manager `ClusterIssuer`             | X        |                                                 |
+| tlsSecretName          | TLS secret name to use                   | X        |                                                 |
+| ingressClassName       | Ingress to be used                       |          |                                                 |
+| annotations            | User-Defined annotations                 | X        |                                                 |
+| resources              | resource request & limit                 | X        | _check specs_                                   |
+| readOnlyRootFilesystem | check `ReadOnlyRootFilesystemSpec` below | X        | _check specs_                                   |
 
 ### ReadOnlyRootFilesystemSpec (optional)
 
@@ -119,7 +119,7 @@ If you need to scrape a target that requires authentication, you can add the aut
 | resources | resource request & limit                  | X        | _check specs_                                                                                               |
 
 :::tip
-If you've provisioned Prometheus via **kube-prometheus-stack**, you can find the corresponding `release` value of your Prometheus instance by checking the labels of the Prometheus operator pod e.g:
+If you've provisioned Prometheus via [kube-prometheus-stack](https://github.com/prometheus-community/helm-charts/blob/main/charts/kube-prometheus-stack/README.md), you can find the corresponding `release` value of your Prometheus instance by checking the labels of the Prometheus operator pod e.g:
 
 ```shell
 kubectl describe pod {kube-prometheus-stack-operator-pod} -n {kube-prometheus-stack-namespace}
@@ -145,10 +145,10 @@ release=promstack
 
 ### HealthCheckSpec (optional)
 
-| Name      | Description                               | Optional | Default                                                                                                     |
-| --------- | ----------------------------------------- | -------- | ----------------------------------------------------------------------------------------------------------- |
-| image     | container image to use                    | X        | [akyriako78/typesense-healthcheck](https://github.com/akyriako/typesense-healthcheck):0.1.7 |
-| resources | resource request & limit                  | X        | _check specs_                                                                                               |
+| Name      | Description              | Optional | Default                                                                                     |
+| --------- | ------------------------ | -------- | ------------------------------------------------------------------------------------------- |
+| image     | container image to use   | X        | [akyriako78/typesense-healthcheck](https://github.com/akyriako/typesense-healthcheck):0.1.7 |
+| resources | resource request & limit | X        | _check specs_                                                                               |
 
 ### TypesenseClusterStatus
 

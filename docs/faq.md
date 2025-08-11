@@ -37,7 +37,7 @@ No, there isn't and is not going to be one in the future. We respond relatively 
 
 ### Is TyKO still in beta?
 
-Yes—TyKO is currently in beta.
+No. TyKO, after version 0.3.0, is a very stable release suitable for production workloads.
 
 ### Son of a gun, I lost my data (aaaargh!)
 
