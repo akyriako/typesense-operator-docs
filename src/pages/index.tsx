@@ -25,8 +25,9 @@ export default function Home(): JSX.Element {
               <h1 style={{ fontSize: "3rem", marginBottom: "0.5rem", lineHeight: 1.1 }}>
                 TyKO
               </h1>
-              <p style={{ fontSize: "1.3rem", opacity: 0.9, marginBottom: "1.25rem" }}>
-                Your turnkey Typesense Kubernetes Operator
+              <p style={{ fontSize: "1.15rem", opacity: 0.9, marginBottom: "1.25rem" }}>
+                Your turnkey Typesense Kubernetes Operator<br/>
+                for highly available self-healing Typesense clusters
               </p>
               <div style={{ display: "flex", gap: "0.75rem", flexWrap: "wrap" }}>
                 <Link className="button button--primary button--lg" to="/docs/getting-started">
@@ -158,7 +159,7 @@ const features = [
   },
   {
     title: "Batteries‑included",
-    desc: "Ingress, Services, StatefulSets, ConfigMaps, Secrets, PodMetrics and many more — all managed for you.",
+    desc: "Ingress, Services, StatefulSets, ConfigMaps, Secrets, PodMetrics and many more, all managed for you.",
     icon: <Rocket />,
   },
   {
