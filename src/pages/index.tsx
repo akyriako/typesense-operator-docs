@@ -2,14 +2,15 @@ import React from "react";
 import Layout from "@theme/Layout";
 import Link from "@docusaurus/Link";
 import useDocusaurusContext from "@docusaurus/useDocusaurusContext";
+import { Shield, Settings, LifeBuoy, Battery, BarChart3, Lock , HeartPulse, Rocket, CircleFadingArrowUp, Ship} from "lucide-react";
 
 export default function Home(): JSX.Element {
   const { siteConfig } = useDocusaurusContext();
 
   return (
     <Layout
-      title={siteConfig.title}
-      description="Typesense Kubernetes Operator - TyKO">
+      title={`Typesense Kubernetes Operator Docs`}
+      description="TyKO, your turnkey Typesense Kubernetes Operator">
       {/* HERO */}
       <section
         style={{
@@ -28,16 +29,15 @@ export default function Home(): JSX.Element {
                 Your turnkey Typesense Kubernetes Operator
               </p>
               <div style={{ display: "flex", gap: "0.75rem", flexWrap: "wrap" }}>
-                <Link className="button button--primary button" to="/docs/get-started">
+                <Link className="button button--primary button--lg" to="/docs/getting-started">
                   Get Started ->
                 </Link>
-                <Link className="button button--secondary button" to="https://github.com/akyriako/typesense-operator">
+                <Link className="button button--secondary button--lg" to="https://github.com/akyriako/typesense-operator">
                   GitHub
                 </Link>
               </div>
             </div>
             <div className="col col--5" style={{ textAlign: "right" }}>
-              {/* Optional hero art: replace with your own static image in /static/img */}
               <img
                 src="/img/hero.png"
                 alt="TyKO Hero"
@@ -75,7 +75,7 @@ export default function Home(): JSX.Element {
           <div className="row" style={{ marginBottom: "1rem" }}>
             <div className="col col--12" style={{ textAlign: "center" }}>
               <h2 style={{ marginBottom: ".25rem" }}>How it works</h2>
-              <p style={{ opacity: 0.8 }}>Three simple steps to a resilient Typesense cluster</p>
+              <p style={{ opacity: 0.8 }}>Three simple steps to set up a highly available Typesense cluster</p>
             </div>
           </div>
           <div className="row" style={{ rowGap: "1rem" }}>
@@ -103,7 +103,7 @@ export default function Home(): JSX.Element {
                     </div>
                     <p style={{ opacity: 0.85, marginBottom: ".75rem" }}>{s.desc}</p>
                     <Link className="button button--sm button--primary" to={s.href}>
-                      Learn more
+                      Learn more ->
                     </Link>
                   </div>
                 </div>
@@ -125,22 +125,16 @@ export default function Home(): JSX.Element {
       >
 
         <div className="container">
-          {/* Bottom bar */}
           <div className="row" style={{ alignItems: "center" }}>
             <div className="col col--6">
               <small style={{ opacity: 0.8 }}>
                 © 2024-{new Date().getFullYear()} {siteConfig.title}, GPL-3.0 Licensed
               </small>
             </div>
-            <div className="col col--6" style={{ textAlign: "right" }}>
-              {/* <small style={{ opacity: 0.8 }}>
-                Built with Docusaurus.
-              </small> */}
-            </div>
+            <div className="col col--6" style={{ textAlign: "right" }}></div>
           </div>
         </div>
       </section>
-
 
     </Layout>
   );
@@ -149,33 +143,33 @@ export default function Home(): JSX.Element {
 const features = [
   {
     title: "Self‑healing clusters",
-    desc: "Automated failover, quorum recovery, and node reconciliation keep your Typesense clusters healthy without manual babysitting.",
-    icon: "🩹",
+    desc: "Automated failover, quorum recovery, and raft re-evaluation keep your Typesense clusters healthy without any manual intervention.",
+    icon: <HeartPulse />,
   },
   {
-    title: "Zero‑downtime upgrades",
-    desc: "Rolling updates with safe orchestration ensure your search stays online while you iterate.",
-    icon: "⚙️",
+    title: "Zero‑downtime updates",
+    desc: "Rolling updates with safe orchestration ensure your clusters stay online while you upgrade or downgrade their Typesense version.",
+    icon: <CircleFadingArrowUp />,
   },
   {
     title: "Kubernetes‑native",
-    desc: "CRDs and controllers built with Go & Operator SDK, following Kubernetes best‑practices.",
-    icon: "☸️",
+    desc: "Built with Go & Operator SDK, following Kubernetes best‑practices. Extend TyKO to your needs if you wish.",
+    icon: <Ship />,
   },
   {
     title: "Batteries‑included",
-    desc: "Ingress, Services, StatefulSets, config, secrets and metrics — managed for you.",
-    icon: "🔋",
+    desc: "Ingress, Services, StatefulSets, ConfigMaps, Secrets, PodMetrics and many more — all managed for you.",
+    icon: <Rocket />,
   },
   {
     title: "Observability",
-    desc: "Expose Prometheus metrics for proactive alerts and dashboards.",
-    icon: "📈",
+    desc: "Expose Typesense nodes health status and metrics to Prometheus for monitoring and alerting purposes.",
+    icon: <BarChart3 />,
   },
   {
     title: "Secure by default",
-    desc: "Opinionated defaults for production‑ready clusters and sane resource limits.",
-    icon: "🔐",
+    desc: "Opinionated defaults for secure production‑ready clusters and sane resource limits.",
+    icon: <Lock />,
   },
 ] as const;
 
@@ -183,16 +177,16 @@ const steps = [
   {
     title: "Install the Operator",
     desc: "Add the Helm repo and install to your cluster.",
-    href: "/docs/get-started",
+    href: "/docs/installation#deploy-using-helm",
   },
   {
     title: "Declare your Cluster",
     desc: "Apply a TypesenseCluster YAML with the size and storage you need.",
-    href: "/docs/concepts/crd",
+    href: "/docs/crds/crds-examples",
   },
   {
     title: "Let TyKO do the rest",
     desc: "TyKO provisions, configures, monitors and heals the cluster automatically.",
-    href: "/docs/concepts/ha",
+    href: "/docs/how-it-works/",
   },
 ] as const;
