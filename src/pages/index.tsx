@@ -3,7 +3,7 @@ import Layout from "@theme/Layout";
 import Link from "@docusaurus/Link";
 import useBaseUrl from '@docusaurus/useBaseUrl';
 import useDocusaurusContext from "@docusaurus/useDocusaurusContext";
-import { Shield, Settings, LifeBuoy, Battery, BarChart3, Lock , HeartPulse, Rocket, CircleFadingArrowUp, Ship} from "lucide-react";
+import { BarChart3, Lock , HeartPulse, Rocket, CircleFadingArrowUp, Ship, Cable} from "lucide-react";
 
 export default function Home(): JSX.Element {
   const { siteConfig } = useDocusaurusContext();
@@ -169,9 +169,9 @@ const features = [
     icon: <BarChart3 />,
   },
   {
-    title: "Secure by default",
+    title: "Production-ready",
     desc: "Opinionated defaults for secure production‑ready clusters and sane resource limits.",
-    icon: <Lock />,
+    icon: <Cable />,
   },
 ] as const;
 
