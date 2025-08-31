@@ -1,6 +1,7 @@
 import React from "react";
 import Layout from "@theme/Layout";
 import Link from "@docusaurus/Link";
+import useBaseUrl from '@docusaurus/useBaseUrl';
 import useDocusaurusContext from "@docusaurus/useDocusaurusContext";
 import { Shield, Settings, LifeBuoy, Battery, BarChart3, Lock , HeartPulse, Rocket, CircleFadingArrowUp, Ship} from "lucide-react";
 
@@ -14,7 +15,7 @@ export default function Home(): JSX.Element {
       {/* HERO */}
       <section
         style={{
-          padding: "6rem 0 3rem",
+          padding: "3rem 0 1rem",
           background: "linear-gradient(180deg, var(--ifm-hero-background-color, #0f172a) 0%, var(--ifm-background-surface-color) 100%)",
           color: "var(--ifm-hero-text-color, #fff)",
         }}
@@ -38,11 +39,11 @@ export default function Home(): JSX.Element {
                 </Link>
               </div>
             </div>
-            <div className="col col--5" style={{ textAlign: "right" }}>
+            <div className="col col--5" style={{ textAlign: "center" }}>
               <img
-                src="/img/hero.png"
+                src={useBaseUrl('/img/tyko-logo.png')}
                 alt="TyKO Hero"
-                style={{ maxWidth: "100%", borderRadius: "1rem", boxShadow: "0 10px 40px rgba(0,0,0,.2)" }}
+                style={{ maxWidth: "50%" }}
                 onError={(e) => { (e.currentTarget as HTMLImageElement).style.display = 'none'; }}
               />
             </div>
