@@ -3,13 +3,14 @@ import Layout from "@theme/Layout";
 import Link from "@docusaurus/Link";
 import useBaseUrl from '@docusaurus/useBaseUrl';
 import useDocusaurusContext from "@docusaurus/useDocusaurusContext";
-import { BarChart3, Lock , HeartPulse, Rocket, CircleFadingArrowUp, Ship, Cable} from "lucide-react";
+import { BarChart3, Lock, HeartPulse, Rocket, CircleFadingArrowUp, Ship, Cable } from "lucide-react";
 
 export default function Home(): JSX.Element {
   const { siteConfig } = useDocusaurusContext();
 
   return (
     <Layout
+
       title={`Typesense Kubernetes Operator Docs`}
       description="TyKO, your turnkey Typesense Kubernetes Operator">
       {/* HERO */}
@@ -27,7 +28,7 @@ export default function Home(): JSX.Element {
                 TyKO
               </h1>
               <p style={{ fontSize: "1.15rem", opacity: 0.9, marginBottom: "1.25rem" }}>
-                Your turnkey Typesense Kubernetes Operator<br/>
+                Your turnkey Typesense Kubernetes Operator<br />
                 for highly available self-healing Typesense clusters
               </p>
               <div style={{ display: "flex", gap: "0.75rem", flexWrap: "wrap" }}>
@@ -39,8 +40,14 @@ export default function Home(): JSX.Element {
                 </Link>
               </div>
             </div>
+            <style>{`
+              @media (max-width: 932px) {
+                .hero-inline-hide { display: none !important; maxWidth: "50%" }
+              }
+            `}</style>
             <div className="col col--5" style={{ textAlign: "center" }}>
               <img
+                className="hero-inline-hide"
                 src={useBaseUrl('/img/tyko-logo.png')}
                 alt="TyKO Hero"
                 style={{ maxWidth: "50%" }}
