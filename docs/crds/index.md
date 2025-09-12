@@ -16,28 +16,29 @@ Typesense Kubernetes Operator is controlling the lifecycle of multiple Typesense
 
 ### TypesenseClusterSpec
 
-| Name                          | Description                                              | Optional | Default       |
-| ----------------------------- | -------------------------------------------------------- | -------- | ------------- |
-| image                         | Typesense image                                          |          |               |
-| adminApiKey                   | Reference to the `Secret` to be used for bootstrap       | X        |               |
-| replicas                      | Size of the cluster (allowed 1, 3, 5 or 7)               |          | 3             |
-| apiPort                       | REST/API port                                            |          | 8108          |
-| peeringPort                   | Peering port                                             |          | 8107          |
-| resetPeersOnError             | automatic reset of peers on error                        |          | true          |
-| enableCors                    | enables CORS                                             | X        | false         |
-| corsDomains                   | comma separated list of domains allowed for CORS         | X        |               |
-| resources                     | resource request & limit                                 | X        | _check specs_ |
-| affinity                      | group of affinity scheduling rules                       | X        |               |
-| nodeSelector                  | node selection constraint                                | X        |               |
-| tolerations                   | schedule pods with matching taints                       | X        |               |
-| additionalServerConfiguration | a reference to a `ConfigMap` holding extra configuration | X        |               |
-| storage                       | check `StorageSpec` [below](#storagespec-optional)       |          |               |
-| ingress                       | check `IngressSpec` [below](#ingressspec-optional)       | X        |               |
-| scrapers                      | array of `DocSearchScraperSpec`; check below             | X        |               |
-| metrics                       | check `MetricsSpec` below                                | X        |               |
-| healthcheck                   | check `HealthCheckSpec` below                            | X        |               |
-| topologySpreadConstraints     | how to spread a  group of pods across topology domains   | X        |               |
-| incrementalQuorumRecovery     | add nodes gradually to the statefulset while recovering  | X        | false         |
+| Name                             | Description                                              | Optional | Default       |
+| -------------------------------- | -------------------------------------------------------- | -------- | ------------- |
+| image                            | Typesense image                                          |          |               |
+| adminApiKey                      | Reference to the `Secret` to be used for bootstrap       | X        |               |
+| replicas                         | Size of the cluster (allowed 1, 3, 5 or 7)               |          | 3             |
+| apiPort                          | REST/API port                                            |          | 8108          |
+| peeringPort                      | Peering port                                             |          | 8107          |
+| resetPeersOnError                | automatic reset of peers on error                        |          | true          |
+| enableCors                       | enables CORS                                             | X        | false         |
+| corsDomains                      | comma separated list of domains allowed for CORS         | X        |               |
+| resources                        | resource request & limit                                 | X        | _check specs_ |
+| healthProbeTimeoutInMilliseconds | timeout for waiting on the health endpoint response      | X        | 500           |
+| affinity                         | group of affinity scheduling rules                       | X        |               |
+| nodeSelector                     | node selection constraint                                | X        |               |
+| tolerations                      | schedule pods with matching taints                       | X        |               |
+| additionalServerConfiguration    | a reference to a `ConfigMap` holding extra configuration | X        |               |
+| storage                          | check `StorageSpec` [below](#storagespec-optional)       |          |               |
+| ingress                          | check `IngressSpec` [below](#ingressspec-optional)       | X        |               |
+| scrapers                         | array of `DocSearchScraperSpec`; check below             | X        |               |
+| metrics                          | check `MetricsSpec` below                                | X        |               |
+| healthcheck                      | check `HealthCheckSpec` below                            | X        |               |
+| topologySpreadConstraints        | how to spread a group of pods across topology domains    | X        |               |
+| incrementalQuorumRecovery        | add nodes gradually to the statefulset while recovering  | X        | false         |
 
 :::note
 
@@ -88,9 +89,9 @@ If you are targeting [Open Telekom Cloud](https://www.open-telekom-cloud.com/en)
 :::
 
 :::caution
-Although in official Typesense documentation under *Production Best Practices* -> *Configuration* is stated:
+Although in official Typesense documentation under _Production Best Practices_ -> _Configuration_ is stated:
 
-"*Typesense comes built-in with a high performance HTTP server that is used by likes of Fastly in their edge servers at scale. So Typesense can be directly exposed to incoming public-facing internet traffic, without the need to place it behind another web server like Nginx/Apache or your backend API.*"
+"_Typesense comes built-in with a high performance HTTP server that is used by likes of Fastly in their edge servers at scale. So Typesense can be directly exposed to incoming public-facing internet traffic, without the need to place it behind another web server like Nginx/Apache or your backend API._"
 
 It is highly recommended, from this operator's perspective, to always expose Typesense behind a reverse proxy (using the `referer` option).
 :::
@@ -113,7 +114,7 @@ If you need to scrape a target that requires authentication, you can add the aut
 
 | Name      | Description                               | Optional | Default                                                                                                     |
 | --------- | ----------------------------------------- | -------- | ----------------------------------------------------------------------------------------------------------- |
-| image     | container image to use                    | X        | [akyriako78/typesense-prometheus-exporter](https://github.com/akyriako/typesense-prometheus-exporter):0.1.7 |
+| image     | container image to use                    | X        | [akyriako78/typesense-prometheus-exporter](https://github.com/akyriako/typesense-prometheus-exporter):0.1.9 |
 | release   | Prometheus release to become a target of  |          |                                                                                                             |
 | interval  | interval in _seconds_ between two scrapes | X        | 15                                                                                                          |
 | resources | resource request & limit                  | X        | _check specs_                                                                                               |
