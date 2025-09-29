@@ -19,10 +19,10 @@ Typesense Kubernetes Operator is controlling the lifecycle of multiple Typesense
 | Name                             | Description                                              | Optional | Default       |
 | -------------------------------- | -------------------------------------------------------- | -------- | ------------- |
 | image                            | Typesense image                                          |          |               |
-| adminApiKey                      | Reference to the `Secret` to be used for bootstrap       | X        |               |
-| replicas                         | Size of the cluster (allowed 1, 3, 5 or 7)               |          | 3             |
+| adminApiKey                      | reference to the `Secret` to be used for bootstrap       | X        |               |
+| replicas                         | size of the cluster (allowed 1, 3, 5 or 7)               |          | 3             |
 | apiPort                          | REST/API port                                            |          | 8108          |
-| peeringPort                      | Peering port                                             |          | 8107          |
+| peeringPort                      | peering port                                             |          | 8107          |
 | resetPeersOnError                | automatic reset of peers on error                        |          | true          |
 | enableCors                       | enables CORS                                             | X        | false         |
 | corsDomains                      | comma separated list of domains allowed for CORS         | X        |               |
@@ -32,6 +32,7 @@ Typesense Kubernetes Operator is controlling the lifecycle of multiple Typesense
 | nodeSelector                     | node selection constraint                                | X        |               |
 | tolerations                      | schedule pods with matching taints                       | X        |               |
 | additionalServerConfiguration    | a reference to a `ConfigMap` holding extra configuration | X        |               |
+| podAnnotations                   | user-defined annotations                                 | X        |               |
 | storage                          | check `StorageSpec` [below](#storagespec-optional)       |          |               |
 | ingress                          | check `IngressSpec` [below](#ingressspec-optional)       | X        |               |
 | scrapers                         | array of `DocSearchScraperSpec`; check below             | X        |               |
@@ -52,25 +53,25 @@ Typesense Kubernetes Operator is controlling the lifecycle of multiple Typesense
 
 | Name             | Description                 | Optional | Default  |
 | ---------------- | --------------------------- | -------- | -------- |
-| size             | Size of the underlying `PV` | X        | 100Mi    |
+| size             | size of the underlying `PV` | X        | 100Mi    |
 | storageClassName | `StorageClass` to be used   |          | standard |
 
 ### IngressSpec (optional)
 
 | Name                   | Description                              | Optional | Default                                         |
 | ---------------------- | ---------------------------------------- | -------- | ----------------------------------------------- |
-| image                  | Nginx image to use                       | X        | nginx:alpine                                    |
+| image                  | nginx image to use                       | X        | nginx:alpine                                    |
 | referer                | FQDN allowed to access reverse proxy     | X        | empty or the value of `spec.corsDomains` if set |
-| HttpDirectives         | Nginx Proxy HttpDirectives               | X        |                                                 |
-| serverDirectives       | Nginx Proxy serverDirectives             | X        |                                                 |
-| locationDirectives     | Nginx Proxy locationDirectives           | X        |                                                 |
-| host                   | Ingress Host                             |          |                                                 |
-| path                   | HTTP Ingress Path                        | X        | /                                               |
+| HttpDirectives         | nginx proxy HttpDirectives               | X        |                                                 |
+| serverDirectives       | nginx proxy serverDirectives             | X        |                                                 |
+| locationDirectives     | nginx proxy locationDirectives           | X        |                                                 |
+| host                   | ingress host                             |          |                                                 |
+| path                   | HTTP ingress path                        | X        | /                                               |
 | pathType               | interpretation of the path matching      | X        | `ImplementationSpecific`                        |
 | clusterIssuer          | cert-manager `ClusterIssuer`             | X        |                                                 |
 | tlsSecretName          | TLS secret name to use                   | X        |                                                 |
-| ingressClassName       | Ingress to be used                       |          |                                                 |
-| annotations            | User-Defined annotations                 | X        |                                                 |
+| ingressClassName       | ingress to be used                       |          |                                                 |
+| annotations            | user-defined annotations                 | X        |                                                 |
 | resources              | resource request & limit                 | X        | _check specs_                                   |
 | readOnlyRootFilesystem | check `ReadOnlyRootFilesystemSpec` below | X        | _check specs_                                   |
 
