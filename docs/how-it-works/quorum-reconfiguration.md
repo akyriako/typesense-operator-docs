@@ -1,6 +1,7 @@
 ---
 id: quorum-reconfiguration
 title: Quorum (re)configuration
+sidebar_position: 1
 ---
 
 # Quorum (re)configuration

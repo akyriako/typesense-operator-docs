@@ -1,6 +1,7 @@
 ---
 id: recovering-a-cluster-that-has-lost-quorum
 title: Recovering a cluster that has lost quorum
+sidebar_position: 2
 ---
 
 # Recovering a cluster that has lost quorum
