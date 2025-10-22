@@ -16,30 +16,32 @@ Typesense Kubernetes Operator is controlling the lifecycle of multiple Typesense
 
 ### TypesenseClusterSpec
 
-| Name                             | Description                                              | Optional | Default       |
-| -------------------------------- | -------------------------------------------------------- | -------- | ------------- |
-| image                            | Typesense image                                          |          |               |
-| adminApiKey                      | reference to the `Secret` to be used for bootstrap       | X        |               |
-| replicas                         | size of the cluster (allowed 1, 3, 5 or 7)               |          | 3             |
-| apiPort                          | REST/API port                                            |          | 8108          |
-| peeringPort                      | peering port                                             |          | 8107          |
-| resetPeersOnError                | automatic reset of peers on error                        |          | true          |
-| enableCors                       | enables CORS                                             | X        | false         |
-| corsDomains                      | comma separated list of domains allowed for CORS         | X        |               |
-| resources                        | resource request & limit                                 | X        | _check specs_ |
-| healthProbeTimeoutInMilliseconds | timeout for waiting on the health endpoint response      | X        | 500           |
-| affinity                         | group of affinity scheduling rules                       | X        |               |
-| nodeSelector                     | node selection constraint                                | X        |               |
-| tolerations                      | schedule pods with matching taints                       | X        |               |
-| additionalServerConfiguration    | a reference to a `ConfigMap` holding extra configuration | X        |               |
-| podAnnotations                   | user-defined annotations                                 | X        |               |
-| storage                          | check `StorageSpec` [below](#storagespec-optional)       |          |               |
-| ingress                          | check `IngressSpec` [below](#ingressspec-optional)       | X        |               |
-| scrapers                         | array of `DocSearchScraperSpec`; check below             | X        |               |
-| metrics                          | check `MetricsSpec` below                                | X        |               |
-| healthcheck                      | check `HealthCheckSpec` below                            | X        |               |
-| topologySpreadConstraints        | how to spread a group of pods across topology domains    | X        |               |
-| incrementalQuorumRecovery        | add nodes gradually to the statefulset while recovering  | X        | false         |
+| Name                             | Description                                               | Optional | Default       |
+| -------------------------------- | --------------------------------------------------------- | -------- | ------------- |
+| image                            | Typesense image                                           |          |               |
+| imagePullSecrets                 | reference to the private registry authentication `Secret` | X        |               |
+| adminApiKey                      | reference to the bootstrap `Secret`                       | X        |               |
+| replicas                         | size of the cluster (allowed 1, 3, 5 or 7)                |          | 3             |
+| apiPort                          | REST/API port                                             |          | 8108          |
+| peeringPort                      | peering port                                              |          | 8107          |
+| resetPeersOnError                | automatic reset of peers on error                         |          | true          |
+| enableCors                       | enables CORS                                              | X        | false         |
+| corsDomains                      | comma separated list of domains allowed for CORS          | X        |               |
+| resources                        | resource request & limit                                  | X        | _check specs_ |
+| healthProbeTimeoutInMilliseconds | timeout for waiting on the health endpoint response       | X        | 500           |
+| affinity                         | group of affinity scheduling rules                        | X        |               |
+| nodeSelector                     | node selection constraint                                 | X        |               |
+| tolerations                      | schedule pods with matching taints                        | X        |               |
+| additionalServerConfiguration    | a reference to a `ConfigMap` holding extra configuration  | X        |               |
+| podAnnotations                   | user-defined annotations                                  | X        |               |
+| storage                          | check `StorageSpec` [below](#storagespec-optional)        |          |               |
+| ingress                          | check `IngressSpec` [below](#ingressspec-optional)        | X        |               |
+| scrapers                         | array of `DocSearchScraperSpec`; check below              | X        |               |
+| metrics                          | check `MetricsSpec` below                                 | X        |               |
+| healthcheck                      | check `HealthCheckSpec` below                             | X        |               |
+| topologySpreadConstraints        | how to spread a group of pods across topology domains     | X        |               |
+| priorityClassName                | reference to a pod priority and preemption class          | X        |               |
+| incrementalQuorumRecovery        | add nodes gradually to the statefulset while recovering   | X        | false         |
 
 :::note
 
