@@ -16,37 +16,39 @@ Typesense Kubernetes Operator is controlling the lifecycle of multiple Typesense
 
 ### TypesenseClusterSpec
 
-| Name                             | Description                                               | Optional | Default       |
-| -------------------------------- | --------------------------------------------------------- | -------- | ------------- |
-| image                            | Typesense image                                           |          |               |
-| imagePullSecrets                 | reference to the private registry authentication `Secret` | X        |               |
-| adminApiKey                      | reference to the bootstrap `Secret`                       | X        |               |
-| replicas                         | size of the cluster (allowed 1, 3, 5 or 7)                |          | 3             |
-| apiPort                          | REST/API port                                             |          | 8108          |
-| peeringPort                      | peering port                                              |          | 8107          |
-| resetPeersOnError                | automatic reset of peers on error                         |          | true          |
-| enableCors                       | enables CORS                                              | X        | false         |
-| corsDomains                      | comma separated list of domains allowed for CORS          | X        |               |
-| resources                        | resource request & limit                                  | X        | _check specs_ |
-| healthProbeTimeoutInMilliseconds | timeout for waiting on the health endpoint response       | X        | 500           |
-| affinity                         | group of affinity scheduling rules                        | X        |               |
-| nodeSelector                     | node selection constraint                                 | X        |               |
-| tolerations                      | schedule pods with matching taints                        | X        |               |
-| additionalServerConfiguration    | a reference to a `ConfigMap` holding extra configuration  | X        |               |
-| podAnnotations                   | user-defined annotations                                  | X        |               |
-| storage                          | check `StorageSpec` [below](#storagespec-optional)        |          |               |
-| ingress                          | check `IngressSpec` [below](#ingressspec-optional)        | X        |               |
-| scrapers                         | array of `DocSearchScraperSpec`; check below              | X        |               |
-| metrics                          | check `MetricsSpec` below                                 | X        |               |
-| healthcheck                      | check `HealthCheckSpec` below                             | X        |               |
-| topologySpreadConstraints        | how to spread a group of pods across topology domains     | X        |               |
-| priorityClassName                | reference to a pod priority and preemption class          | X        |               |
-| incrementalQuorumRecovery        | add nodes gradually to the statefulset while recovering   | X        | false         |
+| Name                              | Description                                               | Optional | Default       |
+| --------------------------------- | --------------------------------------------------------- | -------- | ------------- |
+| image                             | Typesense image                                           |          |               |
+| imagePullSecrets                  | reference to the private registry authentication `Secret` | X        |               |
+| adminApiKey                       | reference to the bootstrap `Secret`                       | X        |               |
+| replicas                          | size of the cluster (allowed 1, 3, 5 or 7)                |          | 3             |
+| apiPort                           | REST/API port                                             |          | 8108          |
+| peeringPort                       | peering port                                              |          | 8107          |
+| resetPeersOnError                 | automatic reset of peers on error                         |          | true          |
+| enableCors                        | enables CORS                                              | X        | false         |
+| corsDomains                       | comma separated list of domains allowed for CORS          | X        |               |
+| resources                         | resource request & limit                                  | X        | _check specs_ |
+| healthProbeTimeoutInMilliseconds  | timeout for waiting on the health endpoint response       | X        | 500           |
+| affinity                          | group of affinity scheduling rules                        | X        |               |
+| nodeSelector                      | node selection constraint                                 | X        |               |
+| tolerations                       | schedule pods with matching taints                        | X        |               |
+| additionalServerConfiguration     | a reference to a `ConfigMap` holding extra configuration  | X        |               |
+| statefulSetAnnotations            | user-defined annotations                                  | X        |               |
+| podAnnotations                    | user-defined annotations                                  | X        |               |
+| podsInheritStatefulSetAnnotations | propagate all statefulset annotations to pods             | X        | false         |
+| storage                           | check `StorageSpec` [below](#storagespec-optional)        |          |               |
+| ingress                           | check `IngressSpec` [below](#ingressspec-optional)        | X        |               |
+| scrapers                          | array of `DocSearchScraperSpec`; check below              | X        |               |
+| metrics                           | check `MetricsSpec` below                                 | X        |               |
+| healthcheck                       | check `HealthCheckSpec` below                             | X        |               |
+| topologySpreadConstraints         | how to spread a group of pods across topology domains     | X        |               |
+| priorityClassName                 | reference to a pod priority and preemption class          | X        |               |
+| incrementalQuorumRecovery         | add nodes gradually to the statefulset while recovering   | X        | false         |
 
 :::note
 
 * Add additional Typesense server configuration variables in a `ConfigMap`, using `additionalServerConfiguration` as described in: https://typesense.org/docs/28.0/api/server-configuration.html#using-environment-variables.
-* Any Typesense server configuration variable that is defined in `TypesenseClusterSpec` is overriding any additional reference of the same variable in `additionalServerConfiguration`. You can find an example of providing an additional `NodesListConfigMap` in: **config/samples/ts_v1alpha1_typesensecluster_kind.yaml**.
+* Any Typesense server configuration variable that is defined in `TypesenseClusterSpec` is overriding any additional reference of the same variable in `additionalServerConfiguration`. You can find an example of providing an additional `ConfigMap` in: **config/samples/ts_v1alpha1_typesensecluster_kind.yaml**.
 * In heavy datasets is advised to set `incrementalQuorumRecovery` to `true` and let the controller reconstruct the quorum node by node. That will smooth the leader election process while new nodes are joining but it will make recovery process last longer.
 
 :::
@@ -151,7 +153,7 @@ release=promstack
 
 | Name      | Description              | Optional | Default                                                                                     |
 | --------- | ------------------------ | -------- | ------------------------------------------------------------------------------------------- |
-| image     | container image to use   | X        | [akyriako78/typesense-healthcheck](https://github.com/akyriako/typesense-healthcheck):0.1.7 |
+| image     | container image to use   | X        | [akyriako78/typesense-healthcheck](https://github.com/akyriako/typesense-healthcheck):0.1.8 |
 | resources | resource request & limit | X        | _check specs_                                                                               |
 
 ### TypesenseClusterStatus
