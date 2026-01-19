@@ -61,15 +61,15 @@ IMG ?= $(DOCKER_HUB_NAME)/$(IMG_NAME):$(IMG_TAG)
 
 Provision one of the samples available in **config/samples**:
 
-| Suffix           | Description           | CSI Driver                                 | Storage Class         |
-| ---------------- | --------------------- | ------------------------------------------ | --------------------- |
-|                  | Generic               |                                            | standard              |
-| azure            | Microsoft Azure       | disk.csi.azure.com                         | managed-csi           |
-| aws              | AWS                   | ebs.csi.aws.com                            | gp2                   |
-| opentelekomcloud | Open Telekom Cloud    | disk.csi.everest.io<br/>obs.csi.everest.io | csi-disk<br/>csi-obs  |
-| gcp              | Google Cloud Platform | pd.csi.storage.gke.io                      | standard-rwo          |
-| bm               | Bare Metal            | democratic-csi (iscsi/nfs)                 | iscsi<br/>nfs         |
-| kind             | KIND                  |                                            | rancher.io/local-path |
+| Suffix           | Description           | CSI Driver                                  | Storage Class         |
+| ---------------- | --------------------- | ------------------------------------------- | --------------------- |
+|                  | Generic               |                                             | standard              |
+| azure            | Microsoft Azure       | disk.csi.azure.com                          | managed-csi           |
+| aws              | AWS                   | ebs.csi.aws.com                             | gp2                   |
+| opentelekomcloud | Open Telekom Cloud    | disk.csi.everest.io<br/>obs.csi.everest.io  | csi-disk<br/>csi-obs  |
+| gcp              | Google Cloud Platform | pd.csi.storage.gke.io                       | standard-rwo          |
+| bm               | Bare Metal            | democratic-csi-iscsi<br/>democratic-csi-nfs | iscsi<br/>nfs         |
+| kind             | KIND                  |                                             | rancher.io/local-path |
 
 ```sh
 kubectl apply -f config/samples/ts_v1alpha1_typesensecluster_{{Suffix}}.yaml
