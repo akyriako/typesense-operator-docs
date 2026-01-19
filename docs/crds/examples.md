@@ -67,6 +67,49 @@ spec:
 For more information on using environment variables for Typesense consult the [official documentation](https://typesense.org/docs/29.0/api/server-configuration.html#using-environment-variables).
 :::
 
+## Use S3-Compliant Storage as Persistent Volumes
+
+As of **v0.3.6**, storage `accessMode` is introduced that supports `ReadWriteOnce` and `ReadWriteMany`. 
+
+If you are running on [Open Telekom Cloud](https://www.open-telekom-cloud.com/en), you can take advantage of the additional annotations field `csi.storage.k8s.io/fstype` 
+that controls how an S3 bucket is mounted into a Kubernetes pod. 
+
+- Using `csi.storage.k8s.io/fstype: s3fs` mounts an [SFS Turbo, Scalable File System](https://www.open-telekom-cloud.com/en/products-services/core-services/scalable-file-service) bucket using the S3-compatible API, 
+which is useful when you want simple “filesystem-like” access but are okay with object-storage semantics that may not fully match POSIX behavior.
+- Using the annotation `csi.storage.k8s.io/fstype: obsfs` mounts the bucket using the native OBS filesystem driver and is generally the more “OBS-native” approach;
+it avoids some S3FS-specific limitations and is often preferred when you want better integration with OBS.
+
+```yaml
+apiVersion: ts.opentelekomcloud.com/v1alpha1
+kind: TypesenseCluster
+metadata:
+  labels:
+    app.kubernetes.io/name: typesense-operator
+    app.kubernetes.io/managed-by: kustomize
+  name: c-otc-3
+spec:
+  image: typesense/typesense:29.0
+  replicas: 3
+  storage:
+    storageClassName: csi-obs
+    accessMode: ReadWriteMany
+    annotations:
+      everest.io/obs-volume-type: STANDARD
+      csi.storage.k8s.io/fstype: s3fs
+      volume.beta.kubernetes.io/storage-provisioner: everest-csi-provisioner
+      csi.storage.k8s.io/node-publish-secret-name: otc-aksk
+      csi.storage.k8s.io/node-publish-secret-namespace: default
+      everest.io/csi.volume-name-prefix: c-otc-3
+```
+
+:::note
+One big advantage of using these annotations is that the respective S3 buckets will be provisioned dynamically by the CSI itself. 
+
+For more information about configuring Open Telekom Cloud `StorageClass` consult
+the [official documentation](https://docs.otc.t-systems.com/cloud-container-engine/umn/storage/storageclass.html).
+:::
+
+
 ## Scrapers
 
 The `scrapers` field, in the TyKO CRD specs, lets you include documentation indexing directly in your cluster. It turns the Typesense DocSearch scraper into a managed `CronJob`, keeping your search index updated automatically, neatly integrated into your Typesense cluster's operational workflow.
