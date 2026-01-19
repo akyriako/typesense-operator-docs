@@ -194,11 +194,12 @@ release=promstack
 
 ### Conditions Summary
 
-| Condition      | Value | Reason                     | Description                                                |
-| -------------- | ----- | -------------------------- | ---------------------------------------------------------- |
-| ConditionReady | true  | QuorumReady                | Cluster is Operational                                     |
-|                | false | QuorumNotReady             | Cluster is not Operational                                 |
-|                | false | QuorumNotReadyWaitATerm    | Cluster is not Operational; Waits a Term                   |
-|                | false | QuorumDowngraded           | Cluster is not Operational; Scheduled to Single-Instance   |
-|                | false | QuorumUpgraded             | Cluster is Operational; Scheduled to Original Size         |
-|                | false | QuorumNeedsInterventionXXX | Cluster is not Operational; Administrative Action Required |
+| Condition      | Value | Reason                  | Description                                                |
+| -------------- | ----- | ----------------------- | ---------------------------------------------------------- |
+| ConditionReady | true  | QuorumReady             | Cluster is Operational                                     |
+|                | false | QuorumNotReady          | Cluster is not Operational                                 |
+|                | false | QuorumNotReadyWaitATerm | Cluster is not Operational; Waits a Term                   |
+|                | false | QuorumPurged            | Cluster is not Operational; Recreating all Pods            |
+|                | false | QuorumDowngraded        | Cluster is not Operational; Scheduled to Single-Instance   |
+|                | false | QuorumUpgraded          | Cluster is Operational; Scheduled to Original Size         |
+|                | false | QuorumNeedsAttentionXXX | Cluster is not Operational; Administrative Action Required |
