@@ -221,5 +221,5 @@ spec:
 :::important
 To expose your Typesense node metrics to Prometheus via a `PodMonitor` (one per node instance), [kube-prometheus-stack](https://github.com/prometheus-community/helm-charts/blob/main/charts/kube-prometheus-stack/README.md) has to be present in the cluster.
 
-For more information refer to [MetricsSpec](/docs/crds/index.md#metricsspec-optional).
+For more information refer to [MetricsSpec](/docs/crds/index.mdx#metricsspec-optional).
 :::
