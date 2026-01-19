@@ -69,14 +69,23 @@ Typesense Kubernetes Operator is controlling the lifecycle of multiple Typesense
 :::important
 As of **v0.3.6**, storage `accessMode` is introduced that supports `ReadWriteOnce` and `ReadWriteMany`. 
 
-- If you are running on [Open Telekom Cloud](https://www.open-telekom-cloud.com/en), you can take advantage of the additional annotations field `csi.storage.k8s.io/fstype` 
+* If you are running on [Open Telekom Cloud](https://www.open-telekom-cloud.com/en), you can take advantage of the additional annotations field `csi.storage.k8s.io/fstype` 
 that controls how an S3 bucket is mounted into a Kubernetes pod. Using `csi.storage.k8s.io/fstype: s3fs` mounts an [SFS Turbo, Scalable File System](https://www.open-telekom-cloud.com/en/products-services/core-services/scalable-file-service) bucket using the S3-compatible API, 
 which is useful when you want simple “filesystem-like” access but are okay with object-storage semantics that may not fully match POSIX behavior. 
 Using the annotation `csi.storage.k8s.io/fstype: obsfs` mounts the bucket using the native OBS filesystem driver and is generally the more “OBS-native” approach; 
 it avoids some S3FS-specific limitations and is often preferred when you want better integration with OBS. 
 One big advantage of using these annotations is that the respective S3 buckets can be provisioned dynamically by the CSI.
 
-- If you are running on-premises clusters with [democratic-csi](https://github.com/democratic-csi/democratic-csi) installed as the CSI, you can use now use `accessMode: ReadWriteMany` to provision NFS-backed persistent volumes to support Typesense data volumes.
+* If you are running on-premises clusters with [democratic-csi](https://github.com/democratic-csi/democratic-csi) installed as the CSI, you can use now use `accessMode: ReadWriteMany` to provision NFS-backed persistent volumes to support Typesense data volumes.
+
+* If you run on-premises clusters with custom S3-compatible storage (e.g., RustFS, SeaweedFS, JuiceFS, Ceph, CubeFS), you can now use `accessMode: ReadWriteMany` together 
+with the `juicefs-csi-driver` to mount S3 buckets as persistent volumes in pods as Typesense data volumes.
+
+* If you run on-premises clusters or in any cloud provider, you can now attach any remote S3-compatible storage (e.g., AWS S3, Azure Blob Storage etc.), using `accessMode: ReadWriteMany` together 
+with the `juicefs-csi-driver` to mount S3 buckets as persistent volumes in pods as Typesense data volumes.
+
+For more information about installing and configuring **JuiceFS** and **JuiceFS CSI Driver** consult [the official documentation](https://juicefs.com/en/).
+
 :::
 
 ### IngressSpec (optional)
