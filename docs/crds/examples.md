@@ -79,7 +79,7 @@ As of **v0.3.6**, storage `accessMode` is introduced that supports `ReadWriteOnc
   
 :::warning
 
-1. When working with [Open Telekom Cloud Object Storage Service (OBS)](https://www.open-telekom-cloud.com/en/products-services/core-services/object-storage-service), [JuiceFS](https://juicefs.com/en/) and [Redis](https://redis.io/) **are not** required in order to mount S3 bucket in the Pods. The `everest-csi-provisioner` takes care the whole life-cycle of provisioning and mount bucket as volumes
+1. When working with [Open Telekom Cloud Object Storage Service (OBS)](https://www.open-telekom-cloud.com/en/products-services/core-services/object-storage-service), [JuiceFS](https://juicefs.com/en/) and [Redis](https://redis.io/) **are not** required in order to mount S3 bucket in the Pods. The `everest-csi-provisioner` takes care of the whole life-cycle of provisioning and mount bucket as volumes
 via annotations. You can skip this section entirely.
 
 2. When working with [Amazon S3](https://aws.amazon.com/s3/), [Redis](https://redis.io/) **is not** required, as Amazon S3 comes with is own metadata endpoints.
