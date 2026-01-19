@@ -35,5 +35,5 @@ make run
 ```
 
 :::info
-No manager Pod will be created in your cluster. Remember, we are running with `make run` the manager as a local process in our machine. As the controller needs to be able to access individual pods to probe their health status as quorum members we resort, internally in the `manager`, to building the target URLs via [kube-proxy](https://kubernetes.io/docs/reference/command-line-tools-reference/kube-proxy/) as of **v0.3.6**, dropping the external dependency to KubeVPN.
+No manager Pod will be created in your cluster. Remember, with `make run`, we are running the manager as a local process in our machine. As the controller needs to be able to access individual pods to probe their health status as quorum members, we resort internally to building the target URLs via [kube-proxy](https://kubernetes.io/docs/reference/command-line-tools-reference/kube-proxy/) as of **v0.3.6**, dropping the external dependency to KubeVPN.
 :::

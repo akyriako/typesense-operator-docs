@@ -36,6 +36,7 @@ Typesense Kubernetes Operator is controlling the lifecycle of multiple Typesense
 | statefulSetAnnotations            | user-defined annotations                                  | X        |               |
 | podAnnotations                    | user-defined annotations                                  | X        |               |
 | podsInheritStatefulSetAnnotations | propagate all statefulset annotations to pods             | X        | false         |
+| serviceAnnotations                | user-defined annotations                                  | X        |               |
 | storage                           | check `StorageSpec` [below](#storagespec-optional)        |          |               |
 | ingress                           | check `IngressSpec` [below](#ingressspec-optional)        | X        |               |
 | scrapers                          | array of `DocSearchScraperSpec`; check below              | X        |               |
@@ -55,31 +56,36 @@ Typesense Kubernetes Operator is controlling the lifecycle of multiple Typesense
 
 ### StorageSpec (optional)
 
-| Name             | Description                 | Optional | Default  |
-| ---------------- | --------------------------- | -------- | -------- |
-| size             | size of the underlying `PV` | X        | 100Mi    |
-| storageClassName | `StorageClass` to be used   |          | standard |
+| Name             | Description                     | Optional | Default         |
+| ---------------- | ------------------------------- | -------- | --------------- |
+| size             | size of the underlying `PV`     | X        | 100Mi           |
+| storageClassName | `StorageClass` to be used       |          | standard        |
+| accessMode       | access mode for underlying `PV` |          | `ReadWriteOnce` |
+| annotations      | user-defined annotations        | X        |                 |
+
+:::note
+:::
 
 ### IngressSpec (optional)
 
-| Name                   | Description                              | Optional | Default                                         |
-| ---------------------- | ---------------------------------------- | -------- | ----------------------------------------------- |
-| image                  | nginx image to use                       | X        | nginx:alpine                                    |
-| referer                | FQDN allowed to access reverse proxy     | X        | empty or the value of `spec.corsDomains` if set |
-| HttpDirectives         | nginx proxy HttpDirectives               | X        |                                                 |
-| serverDirectives       | nginx proxy serverDirectives             | X        |                                                 |
-| locationDirectives     | nginx proxy locationDirectives           | X        |                                                 |
-| host                   | ingress host                             |          |                                                 |
-| path                   | HTTP ingress path                        | X        | /                                               |
-| pathType               | interpretation of the path matching      | X        | `ImplementationSpecific`                        |
-| clusterIssuer          | cert-manager `ClusterIssuer`             | X        |                                                 |
-| tlsSecretName          | TLS secret name to use                   | X        |                                                 |
-| ingressClassName       | ingress to be used                       |          |                                                 |
-| annotations            | user-defined annotations                 | X        |                                                 |
-| resources              | resource request & limit                 | X        | _check specs_                                   |
-| readOnlyRootFilesystem | check `ReadOnlyRootFilesystemSpec` below | X        | _check specs_                                   |
+| Name                   | Description                              | Optional | Default                                               |
+| ---------------------- | ---------------------------------------- | -------- | ----------------------------------------------------- |
+| image                  | nginx image to use                       | X        | nginx:alpine                                          |
+| referer                | FQDN allowed to access reverse proxy     | X        | empty or the value of `spec.corsDomains` if set       |
+| HttpDirectives         | nginx proxy HttpDirectives               | X        |                                                       |
+| serverDirectives       | nginx proxy serverDirectives             | X        |                                                       |
+| locationDirectives     | nginx proxy locationDirectives           | X        |                                                       |
+| host                   | ingress host                             |          |                                                       |
+| path                   | HTTP ingress path                        | X        | /                                                     |
+| pathType               | interpretation of the path matching      | X        | `ImplementationSpecific`                              |
+| clusterIssuer          | cert-manager `ClusterIssuer`             | X        |                                                       |
+| tlsSecretName          | TLS secret name to use                   | X        |                                                       |
+| ingressClassName       | ingress to be used                       |          |                                                       |
+| annotations            | user-defined annotations                 | X        |                                                       |
+| resources              | resource request & limit                 | X        | _check specs_                                         |
+| readOnlyRootFilesystem | check `ReadOnlyRootFilesystemSpec` below | X        | [_check specs_](#readonlyrootfilesystemspec-optional) |
 
-### ReadOnlyRootFilesystemSpec (optional)
+#### ReadOnlyRootFilesystemSpec (optional)
 
 | Name            | Description                        | Optional | Default                                         |
 | --------------- | ---------------------------------- | -------- | ----------------------------------------------- |
@@ -169,7 +175,7 @@ release=promstack
 | -------------- | ----- | -------------------------- | ---------------------------------------------------------- |
 | ConditionReady | true  | QuorumReady                | Cluster is Operational                                     |
 |                | false | QuorumNotReady             | Cluster is not Operational                                 |
-|                | false | QuorumNotReadyWaitATerm    | Cluster is not Operational; Waits a Terms                  |
+|                | false | QuorumNotReadyWaitATerm    | Cluster is not Operational; Waits a Term                   |
 |                | false | QuorumDowngraded           | Cluster is not Operational; Scheduled to Single-Instance   |
 |                | false | QuorumUpgraded             | Cluster is Operational; Scheduled to Original Size         |
 |                | false | QuorumNeedsInterventionXXX | Cluster is not Operational; Administrative Action Required |
