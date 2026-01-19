@@ -35,25 +35,3 @@ Follow-up issue: https://github.com/akyriako/typesense-operator/issues/173
 ### Workaround
 
 Manually restarting the pod **does not** resolve the problem. The only effective recovery is to delete the underlying PVC/PV, allowing the pod to rebuild its log from peers.
-
-## 143/ Can’t truncate logs before applied_id
-
-### What happens
-
-1. A node enters a `CrashLoopBackOff` state due to an internal Typesense node failure to truncate logs. Typesense logs report:
-
-    ```log
-    typesense F20250613 09:10:49.139238 228 log_manager.cpp:310] Can't truncate logs before _applied_id=6937, last_log_kept=6935
-    ```
-
-2. Kubernetes sees a crash (pod repeatedly restarting), so TyKO will attempt to apply its mitigation actions.
-
-3. But because the root-cause is an internal Typesense log replication error (inability to truncate), none of those operator actions can fix it. As a result, TyKO will continue *trying to recover* the node/cluster, while the node remains in a broken internal state.
-
-Typesense, at the time being, does not expose sufficient API visibility for the operator to distinguish “cannot truncate logs” from a transient crash scenario.
-
-### Workaround
-
-Lowering `TYPESENSE_SNAPSHOT_INTERVAL_SECONDS` is **not** solving the problem. The pod will remain in a CrashLoopBackoff state **unless** manually terminated.
-
-Follow-up issue: https://github.com/akyriako/typesense-operator/issues/143

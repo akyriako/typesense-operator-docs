@@ -189,8 +189,8 @@ const steps = [
     href: "/docs/installation#deploy-using-helm",
   },
   {
-    title: "Declare your Cluster",
-    desc: "Apply a TypesenseCluster YAML with the size and storage you need.",
+    title: "Define your Cluster",
+    desc: "Apply a TypesenseCluster YAML with the version, sizing and storage type you need.",
     href: "/docs/crds/crds-examples",
   },
   {
