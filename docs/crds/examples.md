@@ -92,6 +92,12 @@ via annotations. You can skip this section entirely.
 kubectl apply -f https://raw.githubusercontent.com/juicedata/juicefs-csi-driver/master/deploy/k8s.yaml
 ```
 
+:::note
+
+For more information about installing and configuring **JuiceFS** and **JuiceFS CSI Driver** consult [the official documentation](https://juicefs.com/en/).
+
+:::
+
 #### Install a Redis Cluster
 
 ```bash

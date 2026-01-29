@@ -84,7 +84,7 @@ with the `juicefs-csi-driver` to mount S3 buckets as persistent volumes in pods 
 * If you run on-premises clusters or in any cloud provider, you can now attach any remote S3-compatible storage (e.g., AWS S3, Azure Blob Storage etc.), using `accessMode: ReadWriteMany` together 
 with the `juicefs-csi-driver` to mount S3 buckets as persistent volumes in pods as Typesense data volumes.
 
-For more information about installing and configuring **JuiceFS** and **JuiceFS CSI Driver** consult [the official documentation](https://juicefs.com/en/).
+For more information about installing and configuring **JuiceFS** and **JuiceFS CSI Driver** for TyKO check the [examples](/docs/crds/examples.md#use-s3-compliant-storage-as-persistent-volumes).
 
 :::
 
@@ -142,6 +142,20 @@ It is highly recommended, from this operator's perspective, to always expose Typ
 
 :::note
 If you need to scrape a target that requires authentication, you can add the authentication configuration as environment variables via `authConfiguration`. In order to see which options are supported currently out of the box, consult the official documentation: https://typesense.org/docs/guide/docsearch.html#authentication
+:::
+
+:::danger
+As of Typesense version `30.0`, breaking changes were introduced in the API for transferring the synonyms and curation sets that created a compatibility issue with DocSearch Scraper version prior to `0.12.0.rc14`. For that reason, 
+it is advised to upgrade Typesense and DocSearch Scraper simultaneously if you are upgrading to Typesense 30.x+ from earlier major versions.
+
+**Compatibility Matrix:**
+| Typesense | DocSearch Scraper |
+| --------- | ----------------- |
+| 29.x      | 0.11.0            |
+| 30.x+     | 0.12.0.rc14+      |
+
+You can follow the related thread in the Typesense Slack channel [here](https://typesense-community.slack.com/archives/C01P749MET0/p1769523580405969) for more information.
+
 :::
 
 ### MetricsSpec (optional)
