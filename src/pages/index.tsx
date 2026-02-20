@@ -3,7 +3,7 @@ import Layout from "@theme/Layout";
 import Link from "@docusaurus/Link";
 import useBaseUrl from '@docusaurus/useBaseUrl';
 import useDocusaurusContext from "@docusaurus/useDocusaurusContext";
-import { BarChart3, Lock, HeartPulse, Rocket, CircleFadingArrowUp, Ship, Cable } from "lucide-react";
+import { BarChart3, Lock, HeartPulse, Rocket, CircleFadingArrowUp, Ship, Cable, HandPlatter } from "lucide-react";
 
 export default function Home(): JSX.Element {
   const { siteConfig } = useDocusaurusContext();
@@ -33,7 +33,7 @@ export default function Home(): JSX.Element {
               </p>
               <div style={{ display: "flex", gap: "0.75rem", flexWrap: "wrap" }}>
                 <Link className="button button--primary button--lg" to="/docs/getting-started">
-                  Get Started ->
+                  Get Started -{">"}
                 </Link>
                 <Link className="button button--secondary button--lg" to="https://github.com/akyriako/typesense-operator">
                   GitHub
@@ -112,7 +112,7 @@ export default function Home(): JSX.Element {
                     </div>
                     <p style={{ opacity: 0.85, marginBottom: ".75rem" }}>{s.desc}</p>
                     <Link className="button button--sm button--primary" to={s.href}>
-                      Learn more ->
+                      Learn more -{">"}
                     </Link>
                   </div>
                 </div>
@@ -151,24 +151,24 @@ export default function Home(): JSX.Element {
 
 const features = [
   {
-    title: "Self‑healing clusters",
+    title: "Self-healing clusters",
     desc: "Automated failover, quorum recovery, and raft re-evaluation keep your Typesense clusters healthy without any manual intervention.",
     icon: <HeartPulse />,
   },
   {
-    title: "Zero‑downtime updates",
+    title: "Zero-downtime updates",
     desc: "Rolling updates with safe orchestration ensure your clusters stay online while you upgrade or downgrade their Typesense version.",
     icon: <CircleFadingArrowUp />,
   },
   {
-    title: "Kubernetes‑native",
-    desc: "Built with Go & Operator SDK, following Kubernetes best‑practices. Extend TyKO to your needs if you wish.",
-    icon: <Ship />,
-  },
-  {
-    title: "Batteries‑included",
-    desc: "Ingress, Services, StatefulSets, ConfigMaps, Secrets, PodMetrics and many more, all managed for you.",
+    title: "Batteries-included",
+    desc: "StatefulSets, ConfigMaps, Secrets, Services, PodMetrics, HttpRoutes and many more, all managed for you.",
     icon: <Rocket />,
+  },
+   {
+    title: "Ingress & Gateway APIs support",
+    desc: "Expose Typesense securely using Kubernetes Ingress or the Gateway API. Integrates with Shared Gateways & TLS termination.",
+    icon: <Cable />,
   },
   {
     title: "Observability",
@@ -177,8 +177,14 @@ const features = [
   },
   {
     title: "Production-ready",
-    desc: "Opinionated defaults for secure production‑ready clusters and sane resource limits.",
-    icon: <Cable />,
+    desc: "Opinionated defaults for secure production-ready clusters and sane resource limits.",
+    icon: <HandPlatter />,
+  },
+ 
+  {
+    title: "Kubernetes-native",
+    desc: "Built with Go & Operator SDK, following Kubernetes best-practices. Extend TyKO to your needs if you wish.",
+    icon: <Ship />,
   },
 ] as const;
 
