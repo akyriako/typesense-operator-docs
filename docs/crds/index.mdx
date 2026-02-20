@@ -41,6 +41,7 @@ Typesense Kubernetes Operator is controlling the lifecycle of multiple Typesense
 | serviceAnnotations                     | user-defined annotations                                                       | X        |                                                                                                                                                                                                                                                                                                                                                                                                                                       |
 | storage                                | check `StorageSpec` [below](#storagespec-optional)                             |          |                                                                                                                                                                                                                                                                                                                                                                                                                                       |
 | ingress                                | check `IngressSpec` [below](#ingressspec-optional)                             | X        |                                                                                                                                                                                                                                                                                                                                                                                                                                       |
+| httpRoutes                             | array of `HttpRouteSpec`; check  [below](#ingressspec-optional)                | X        |                                                                                                                                                                                                                                                                                                                                                                                                                                       |
 | scrapers                               | array of `DocSearchScraperSpec`; check [below](#docsearchscraperspec-optional) | X        |                                                                                                                                                                                                                                                                                                                                                                                                                                       |
 | metrics                                | check `MetricsSpec` [below](#metricsspec-optional)                             | X        |                                                                                                                                                                                                                                                                                                                                                                                                                                       |
 | healthcheck                            | check `HealthCheckSpec` [below](#healthcheckspec-optional)                     | X        |                                                                                                                                                                                                                                                                                                                                                                                                                                       |
@@ -130,6 +131,28 @@ Although in official Typesense documentation under _Production Best Practices_ -
 
 It is highly recommended, from this operator's perspective, to always expose Typesense behind a reverse proxy (using the `referer` option).
 :::
+
+### HttpRouteSpec (optional)
+
+| Name           | Description                                                                                              | Optional | Default                  |
+| -------------- | -------------------------------------------------------------------------------------------------------- | -------- | ------------------------ |
+| name           | name of the route                                                                                        |          |                          |
+| enabled        | enable this route                                                                                        | X        | true                     |
+| parentRef      | reference to the parent `Gateway`; check `GatewayParentRef` [below](#gatewayparentref) |          |                          |
+| hostnames      | array of hostnames to match for this route                                                               |          |                          |
+| path           | path to match for this route                                                                             | X        | /                        |
+| pathType       | interpretation of the path matching                                                                      | X        | `ImplementationSpecific` |
+| labels         | user-defined labels                                                                                      | X        |                          |
+| annotations    | user-defined annotations                                                                                 | X        |                          |
+| referenceGrant | enable cross-namespace reference to the parent `Gateway`                                                 | X        | false                    |
+
+#### GatewayParentRef
+
+| Name        | Description                                                    | Optional | Default |
+| ----------- | -------------------------------------------------------------- | -------- | ------- |
+| name        | name of the parent `Gateway`                                   |          |         |
+| namespace   | namespace of the parent `Gateway`                              |          |         |
+| sectionName | section of the parent `Gateway` to route to (e.g. "websecure") | X        |         |
 
 ### DocSearchScraperSpec (optional)
 
