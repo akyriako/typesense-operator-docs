@@ -3,7 +3,7 @@ import Layout from "@theme/Layout";
 import Link from "@docusaurus/Link";
 import useBaseUrl from '@docusaurus/useBaseUrl';
 import useDocusaurusContext from "@docusaurus/useDocusaurusContext";
-import { BarChart3, Lock, HeartPulse, Rocket, CircleFadingArrowUp, Ship, Cable, HandPlatter } from "lucide-react";
+import { BarChart3, Lock, HeartPulse, Rocket, CircleFadingArrowUp, Ship, Cable, HandPlatter, Archive } from "lucide-react";
 
 export default function Home(): JSX.Element {
   const { siteConfig } = useDocusaurusContext();
@@ -157,7 +157,7 @@ const features = [
   },
   {
     title: "Zero-downtime updates",
-    desc: "Rolling updates with safe orchestration ensure your clusters stay online while you upgrade or downgrade their Typesense version.",
+    desc: "Rolling updates with safe orchestration ensure you are always stay operational while you upgrade, downgrade or resize your Typesense clusters.",
     icon: <CircleFadingArrowUp />,
   },
   {
@@ -165,7 +165,7 @@ const features = [
     desc: "StatefulSets, ConfigMaps, Secrets, Services, PodMetrics, HttpRoutes and many more, all managed for you.",
     icon: <Rocket />,
   },
-   {
+  {
     title: "Ingress & Gateway APIs support",
     desc: "Expose Typesense securely using Kubernetes Ingress or the Gateway API. Integrates with Shared Gateways & TLS termination.",
     icon: <Cable />,
@@ -180,7 +180,11 @@ const features = [
     desc: "Opinionated defaults for secure production-ready clusters and sane resource limits.",
     icon: <HandPlatter />,
   },
- 
+  {
+    title: "S3-compatible storage support",
+    desc: "Persist data on any S3-compatible object storage. Works with OBS, AWS S3, RustFS and many more for vendor-neutral storage.",
+    icon: <Archive />,
+  },
   {
     title: "Kubernetes-native",
     desc: "Built with Go & Operator SDK, following Kubernetes best-practices. Extend TyKO to your needs if you wish.",
