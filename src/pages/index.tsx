@@ -200,7 +200,7 @@ const steps = [
   },
   {
     title: "Define your Cluster",
-    desc: "Apply a TypesenseCluster YAML with the version, sizing and storage type you need.",
+    desc: "Apply a single manifest with the version, size and storage you need.",
     href: "/docs/crds/crds-examples",
   },
   {
