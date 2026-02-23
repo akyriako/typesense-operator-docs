@@ -513,9 +513,9 @@ spec:
 
 To expose your Typesense cluster via a `Gateway`, certain prerequisites must already be present in your Kubernetes cluster:
 
-:white_check_mark: You will need an gateway controller present (example is using [Traefik Gateway Controller](https://doc.traefik.io/traefik/reference/routing-configuration/kubernetes/gateway-api/)). <br/>
-:white_check_mark: You will need a `GatewayClass` and a `Gateway` configured. <br/>
-:white_check_mark: You will need [cert-manager](https://cert-manager.io/) present that takes care of the TLS certiicates. <br/>
+☑️ You will need a gateway controller present (example is using [Traefik Gateway Controller](https://doc.traefik.io/traefik/reference/routing-configuration/kubernetes/gateway-api/)). <br/>
+☑️ You will need a `GatewayClass` and a `Gateway` configured. <br/>
+☑️ You will need [cert-manager](https://cert-manager.io/) present that takes care of the TLS certiicates. <br/>
 
 :::
 
