@@ -473,6 +473,52 @@ To expose your Typesense cluster via an `Ingress`, certain prerequisites must al
 
 :::
 
+## Gateway HttpRoutes
+
+```yaml
+apiVersion: ts.opentelekomcloud.com/v1alpha1
+kind: TypesenseCluster
+metadata:
+  name: tsc
+spec:
+  image: typesense/typesense:30.1
+  replicas: 3
+  storage:
+    storageClassName: standard
+  enableCors: true
+  corsDomains: "https://docs.example.com"
+  httpRoutes:
+    - name: public
+      parentRef:
+        name: traefik-gateway
+        namespace: kube-system
+      hostnames:
+        - typesense.docs.example.com
+        - search.docs.example.com
+      enabled: true
+    - name: private
+      parentRef:
+        name: traefik-gateway
+        namespace: kube-system
+        section: web
+      hostnames:
+        - typesense-int.docs.example.com
+      enabled: true
+      referenceGrant: true
+```
+
+:::warning
+
+**The operator does not configure or manage Gateways. Gateway setup is intentionally left out of scope because it is highly platform-specific and tightly coupled to cluster networking, security, and organizational policies. All required Gateway resources must be provisioned and maintained in advance by your platform or cluster engineering team.**
+
+To expose your Typesense cluster via a `Gateway`, certain prerequisites must already be present in your Kubernetes cluster:
+
+☑️ You will need a gateway controller present (example is using [Traefik Gateway Controller](https://doc.traefik.io/traefik/reference/routing-configuration/kubernetes/gateway-api/)). <br/>
+☑️ You will need a `GatewayClass` and a `Gateway` configured. <br/>
+☑️ You will need [cert-manager](https://cert-manager.io/) present that takes care of the TLS certiicates. <br/>
+
+:::
+
 ## Metrics
 
 ```yaml

@@ -1,5 +1,5 @@
-import {themes as prismThemes} from 'prism-react-renderer';
-import type {Config} from '@docusaurus/types';
+import { themes as prismThemes } from 'prism-react-renderer';
+import type { Config } from '@docusaurus/types';
 import type * as Preset from '@docusaurus/preset-classic';
 import type { Options as UmamiOptions } from '@dipakparmar/docusaurus-plugin-umami';
 
@@ -61,6 +61,8 @@ const config: Config = {
           onInlineTags: 'warn',
           onInlineAuthors: 'warn',
           onUntruncatedBlogPosts: 'warn',
+          blogSidebarTitle: 'All posts',
+          blogSidebarCount: 'ALL',
         },
         theme: {
           customCss: './src/css/custom.css',
@@ -85,13 +87,13 @@ const config: Config = {
           position: 'left',
           label: 'Docs',
         },
-        {to: '/blog', label: 'Releases', position: 'left'},
+        { to: '/blog', label: 'Releases', position: 'left' },
         // {
         //   type: 'docsVersionDropdown',
         //   position: 'right'
         // },
-        { 
-          href: 'https://github.com/akyriako/typesense-operator', 
+        {
+          href: 'https://github.com/akyriako/typesense-operator',
           position: 'right',
           className: 'navbar--github-link',
           "aria-label": 'GitHub',

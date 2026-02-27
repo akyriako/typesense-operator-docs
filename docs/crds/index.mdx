@@ -40,7 +40,8 @@ Typesense Kubernetes Operator is controlling the lifecycle of multiple Typesense
 | podsInheritStatefulSetAnnotations      | propagate all `StatefulSet` annotations to `Pods`                              | X        | false                                                                                                                                                                                                                                                                                                                                                                                                                                 |
 | serviceAnnotations                     | user-defined annotations                                                       | X        |                                                                                                                                                                                                                                                                                                                                                                                                                                       |
 | storage                                | check `StorageSpec` [below](#storagespec-optional)                             |          |                                                                                                                                                                                                                                                                                                                                                                                                                                       |
-| ingress                                | check `IngressSpec` [below](#ingressspec-optional)                             | X        |                                                                                                                                                                                                                                                                                                                                                                                                                                       |
+| ingress                                | check `IngressSpec` [below](#ingressspec-deprecated)                             | X        |                                                                                                                                                                                                                                                                                                                                                                                                                                       |
+| httpRoutes                             | array of `HttpRouteSpec`; check  [below](#httproutespec-optional)          | X        |                                                                                                                                                                                                                                                                                                                                                                                                                                       |
 | scrapers                               | array of `DocSearchScraperSpec`; check [below](#docsearchscraperspec-optional) | X        |                                                                                                                                                                                                                                                                                                                                                                                                                                       |
 | metrics                                | check `MetricsSpec` [below](#metricsspec-optional)                             | X        |                                                                                                                                                                                                                                                                                                                                                                                                                                       |
 | healthcheck                            | check `HealthCheckSpec` [below](#healthcheckspec-optional)                     | X        |                                                                                                                                                                                                                                                                                                                                                                                                                                       |
@@ -89,7 +90,28 @@ For more information about installing and configuring **JuiceFS** and **JuiceFS 
 
 :::
 
-### IngressSpec (optional)
+### IngressSpec (deprecated)
+
+:::warning
+
+As of **v0.4.0-rc.1**, following the events triggered by the Ingress NGINX retirement in March 2026 (see [here](https://www.kubernetes.dev/blog/2025/11/12/ingress-nginx-retirement/) the announcement of the Kubernetes SIG Network and the Security Response Committee), 
+Ingress API support is deprecated in favor of the more flexible and powerful Gateway API. 
+
+Although the operator will continue to support `Ingress` resources for the foreseeable future without any breaking changes, 
+**no new features or maintainance updates will be made to the `Ingress` implementation**.
+
+For that reason, it is recommended to transition to use `HttpRoute` for new deployments or when updating existing ones.
+
+Additionally, bear in mind that the Kubernetes project itself recommends the following regarding Ingress API (exerpt from the [Kubernetes documentation/Ingress](https://kubernetes.io/docs/concepts/services-networking/ingress/)):
+
+"_The Kubernetes project recommends using Gateway instead of Ingress. The Ingress API has been frozen._
+
+_This means that:_
+
+_-The Ingress API is generally available, and is subject to the stability guarantees for generally available APIs. The Kubernetes project has no plans to remove Ingress from Kubernetes._  
+_-The Ingress API is no longer being developed, and will have no further changes or updates made to it._"
+
+:::
 
 | Name                   | Description                                                                      | Optional | Default                                                                                                                                                                                                                                                                                                                                                                                                                            |
 | ---------------------- | -------------------------------------------------------------------------------- | -------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -118,18 +140,56 @@ For more information about installing and configuring **JuiceFS** and **JuiceFS 
 | volumeMounts    | additional mounts in the container | X        |                                                 |
 
 :::note
-This feature makes use of the existence of [cert-manager](https://cert-manager.io/) in the cluster, but **does not** actively enforce it with an error. If no clusterIssuer is specified a valid certificate must be stored in a secret and the secret name must be provided in the tlsSecretName config.
+1️⃣ This feature makes use of the existence of [cert-manager](https://cert-manager.io/) in the cluster, but **does not** actively enforce it with an error. If no clusterIssuer is specified a valid certificate must be stored in a secret and the secret name must be provided in the tlsSecretName config.
 
 If you are targeting [Open Telekom Cloud](https://www.open-telekom-cloud.com/en), you might be interested in provisioning additionally the designated DNS solver webhook for Open Telekom Cloud. You can find it [here](https://github.com/akyriako/cert-manager-webhook-opentelekomcloud).
-:::
 
-:::caution
-Although in official Typesense documentation under _Production Best Practices_ -> _Configuration_ is stated:
+2️⃣ Although in official Typesense documentation under _Production Best Practices_ -> _Configuration_ is stated:
 
 "_Typesense comes built-in with a high performance HTTP server that is used by likes of Fastly in their edge servers at scale. So Typesense can be directly exposed to incoming public-facing internet traffic, without the need to place it behind another web server like Nginx/Apache or your backend API._"
 
 It is highly recommended, from this operator's perspective, to always expose Typesense behind a reverse proxy (using the `referer` option).
 :::
+
+### HttpRouteSpec (optional)
+
+| Name           | Description                                                                            | Optional | Default                  |
+| -------------- | -------------------------------------------------------------------------------------- | -------- | ------------------------ |
+| name           | name of the route                                                                      |          |                          |
+| enabled        | enable this route                                                                      | X        | true                     |
+| parentRef      | reference to the parent `Gateway`; check `GatewayParentRef` [below](#gatewayparentref) |          |                          |
+| hostnames      | array of hostnames to match for this route                                             |          |                          |
+| path           | path to match for this route                                                           | X        | /                        |
+| pathType       | interpretation of the path matching                                                    | X        | `ImplementationSpecific` |
+| labels         | user-defined labels                                                                    | X        |                          |
+| annotations    | user-defined annotations                                                               | X        |                          |
+| referenceGrant | enable cross-namespace reference to the parent `Gateway`                               | X        | false                    |
+
+:::warning
+
+1️⃣ **The operator does not configure or manage Gateway(s). A `Gateway` setup is intentionally left out of scope because it is highly platform-specific and tightly coupled to cluster networking, security, 
+and organizational policies. All required `Gateway` resources must be provisioned and maintained in advance by your platform or cluster engineering team.**
+
+To expose your Typesense cluster via a `Gateway`, certain prerequisites must already be present in your Kubernetes cluster:
+
+🚧 You will need:
+
+- a gateway controller present (example is using [Traefik Gateway Controller](https://doc.traefik.io/traefik/reference/routing-configuration/kubernetes/gateway-api/)). <br/>
+- a `GatewayClass` and a `Gateway` configured. <br/>
+- [cert-manager](https://cert-manager.io/) to be present that takes care of the TLS certiicates. <br/>
+
+2️⃣ Activating the `HttpRoute` confiruration will automatically deactivate/ignore the `Ingress` one if it exists, but the `Ingress` resource which might be present in the cluster 
+will not be automatically deleted. It can be safely deleted manually, if not needed anymore.
+
+:::
+
+#### GatewayParentRef
+
+| Name        | Description                                                    | Optional | Default |
+| ----------- | -------------------------------------------------------------- | -------- | ------- |
+| name        | name of the parent `Gateway`                                   |          |         |
+| namespace   | namespace of the parent `Gateway`                              |          |         |
+| sectionName | section of the parent `Gateway` to route to (e.g. "websecure") | X        |         |
 
 ### DocSearchScraperSpec (optional)
 
