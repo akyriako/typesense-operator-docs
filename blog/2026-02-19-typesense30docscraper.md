@@ -27,3 +27,5 @@ TyKO `0.3.7` is the first version tested with Typesense 30.x+, therefore is the 
 **Any earlier versions combinations might lead to undefined behavior and/or potential index corruption.**
 
 :::
+
+<!-- truncate -->
