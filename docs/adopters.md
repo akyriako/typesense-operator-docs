@@ -8,7 +8,7 @@ If TyKO handles the lifecycle of your Typesense clusters in Kubernetes, please a
 
 |Name| Description|
 |---|---|
-|[Open Telekom Cloud Architecture Center](https://arch.otc-service.com/)|The Best Practices & Blueprints knowledge-hub of [Open Telekom Cloud](https://www.open-telekom-cloud.com/en), the public cloud offering of [T-Systems International GmbH](https://www.t-systems.com/de/en).|
+|[Architecture Center of T Cloud Public](https://arch.otc-service.com/)|The Best Practices & Blueprints knowledge-hub of [T Cloud Public](https://public.t-cloud.com/en), the public cloud offering of [Deutsche Telekom AG](https://www.telekom.de/start).|
 |[anny](https://anny.co)|Your flexible booking system for all kinds of resources.|
 |[Procure Ai](https://www.procure.ai/)|We enable people to run the world’s most intelligent procurement – human & artificial.|
 |[Hardcover.app](https://hardcover.app/)|Social network and book tracking for readers.|
