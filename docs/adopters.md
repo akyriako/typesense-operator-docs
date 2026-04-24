@@ -13,3 +13,4 @@ If TyKO handles the lifecycle of your Typesense clusters in Kubernetes, please a
 |[Procure Ai](https://www.procure.ai/)|We enable people to run the world’s most intelligent procurement – human & artificial.|
 |[Hardcover.app](https://hardcover.app/)|Social network and book tracking for readers.|
 |[SparkFabrik](https://www.sparkfabrik.com/)|Accelerating enterprises with secure Cloud-Native, AI-powered solutions. CNCF, LFE, OpenSSF members and maintainers of the Drupal Search API Typesense module.|
+|[Veeps](https://www.veeps.com)|Streaming service that offers direct access to live and on-demand events by award-winning artists at the most iconic venues.|
