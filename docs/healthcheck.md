@@ -103,8 +103,7 @@ You can configure external load balancers (e.g., AWS ALB or Open Telekom Cloud E
 
 ## Web UI
 
-The library ships with an interactive, single-page monitoring UI built on Vue.js and Vuetify. Its design and layout are inspired by the 
-[podinfo](https://github.com/stefanprodan/podinfo) demo landing page. It provides:
+The library ships with an interactive, single-page monitoring UI built on Vue.js and Vuetify. It provides:
 
 * **Instant overview**: a clean dashboard that lists every node in your Typesense `StatefulSet`, showing key metrics (leader/follower/candidate state, committed index, queued writes) at a glance.
 * **Auto-refresh**: the UI polls the `/readyz` endpoint every 3 seconds, ensuring you always see up-to-date cluster health without manual reloads.
@@ -112,7 +111,7 @@ The library ships with an interactive, single-page monitoring UI built on Vue.js
 * **Responsive layout**: cards adapt across desktop and mobile, with Vuetify’s grid system ensuring your cluster view stays usable on any screen size.
 * **Lightweight and self-contained**: extremely small memory footprint; just point your browser at `http://POD_IP_ADDRESS_OR_FQDN:HEALTHCHECK_PORT/` and dive right in.
 
-![image1](/img/454372794-42db73c4-f175-4fb5-a862-ec83ace6ada7.png)
+![image1](/img/Screenshot_from_2026-05-19_12-40-30.png)
 
 
 ## Configuration
