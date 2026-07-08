@@ -117,15 +117,15 @@ The library ships with an interactive, single-page monitoring UI built on Vue.js
 ## Configuration
 
 | Variable               | Type   | Default                      | Required | Description                                          |
-| ---------------------- | ------ | ---------------------------- | -------- | ---------------------------------------------------- |
-| LOG_LEVEL              | int    | `0`                          | No       | Log level                                            |
-| CLUSTER_NAMESPACE      | string | `default`                    | No       | K8s namespace where your Typesense StatefulSet lives |
-| TYPESENSE_API_KEY      | string | —                            | Yes      | API key for accessing each Typesense node            |
-| TYPESENSE_PROTOCOL     | string | `http`                       | No       | Protocol for Typesense API (`http` or `https`)       |
-| TYPESENSE_API_PORT     | uint   | `8108`                       | No       | Port for Typesense REST/API Port                     |
-| TYPESENSE_PEERING_PORT | uint   | `8107`                       | No       | Port for Typesense Raft Peering Port                 |
-| HEALTHCHECK_PORT       | uint   | `8808`                       | No       | Port on which this healthcheck sidecar listens       |
-| TYPESENSE_NODES        | string | `/usr/share/typesense/nodes` | No       | Path for Typesense Raft nodes list                   |
+| ---------------------- | ------ | ---------------------------- | :------: | ---------------------------------------------------- |
+| LOG_LEVEL              | int    | `0`                          |          | Log level                                            |
+| CLUSTER_NAMESPACE      | string | `default`                    |          | K8s namespace where your Typesense StatefulSet lives |
+| TYPESENSE_API_KEY      | string | —                            | 🔴       | API key for accessing each Typesense node            |
+| TYPESENSE_PROTOCOL     | string | `http`                       |          | Protocol for Typesense API (`http` or `https`)       |
+| TYPESENSE_API_PORT     | uint   | `8108`                       |          | Port for Typesense REST/API Port                     |
+| TYPESENSE_PEERING_PORT | uint   | `8107`                       |          | Port for Typesense Raft Peering Port                 |
+| HEALTHCHECK_PORT       | uint   | `8808`                       |          | Port on which this healthcheck sidecar listens       |
+| TYPESENSE_NODES        | string | `/usr/share/typesense/nodes` |          | Path for Typesense Raft nodes list                   |
 
 :::note
 All these values are automatically configured by the operator.
