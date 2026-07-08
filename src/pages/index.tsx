@@ -236,7 +236,14 @@ function HomepageCta(): JSX.Element {
             >
               Star on GitHub
             </Link>
+            <Link
+              className="button button--tertiary button--lg"
+              to="/docs/adopters"
+            >
+              Already running TyKO? Join the Adopters
+            </Link>
           </div>
+          
         </div>
       </div>
     </section>
