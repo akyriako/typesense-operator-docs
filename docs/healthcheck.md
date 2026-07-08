@@ -98,7 +98,7 @@ The *typesense-healthcheck* sidecar aggregates and reports the health of all nod
 ```
 
 :::tip
-You can configure external load balancers (e.g., AWS ALB or Open Telekom Cloud ELB) to probe the sidecar’s `/readyz` endpoint for continuous, real-time health checks of your cluster.
+You can configure external load balancers (e.g., AWS ALB or T Cloud Public ELB) to probe the sidecar’s `/readyz` endpoint for continuous, real-time health checks of your cluster.
 :::
 
 ## Web UI

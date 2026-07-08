@@ -66,7 +66,7 @@ Provision one of the samples available in **config/samples**:
 |                  | Generic               |                                             | standard              |
 | azure            | Microsoft Azure       | disk.csi.azure.com                          | managed-csi           |
 | aws              | AWS                   | ebs.csi.aws.com                             | gp2                   |
-| opentelekomcloud | Open Telekom Cloud    | disk.csi.everest.io<br/>obs.csi.everest.io  | csi-disk<br/>csi-obs  |
+| opentelekomcloud | T Cloud Public        | disk.csi.everest.io<br/>obs.csi.everest.io  | csi-disk<br/>csi-obs  |
 | gcp              | Google Cloud Platform | pd.csi.storage.gke.io                       | standard-rwo          |
 | bm               | Bare Metal            | democratic-csi-iscsi<br/>democratic-csi-nfs | iscsi<br/>nfs         |
 | kind             | KIND                  |                                             | rancher.io/local-path |
@@ -75,7 +75,7 @@ Provision one of the samples available in **config/samples**:
 kubectl apply -f config/samples/ts_v1alpha1_typesensecluster_{{Suffix}}.yaml
 ```
 
-e.g. for Open Telekom Cloud it would look like:
+e.g. for T Cloud Public it would look like:
 
 ```yaml title=ts_v1alpha1_typesensecluster_opentelekomcloud.yaml
 apiVersion: v1

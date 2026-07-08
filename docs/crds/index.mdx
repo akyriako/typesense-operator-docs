@@ -96,7 +96,7 @@ which may obscure the client's source IP, or `Local`, which preserves the client
 :::important
 As of **v0.3.6**, storage `accessMode` is introduced that supports `ReadWriteOnce` and `ReadWriteMany`. 
 
-* If you are running on [Open Telekom Cloud](https://www.open-telekom-cloud.com/en), you can take advantage of the additional annotations field `csi.storage.k8s.io/fstype` 
+* If you are running on [T Cloud Public](https://www.open-telekom-cloud.com/en), you can take advantage of the additional annotations field `csi.storage.k8s.io/fstype` 
 that controls how an S3 bucket is mounted into a Kubernetes pod. Using `csi.storage.k8s.io/fstype: s3fs` mounts an [SFS Turbo, Scalable File System](https://www.open-telekom-cloud.com/en/products-services/core-services/scalable-file-service) bucket using the S3-compatible API, 
 which is useful when you want simple “filesystem-like” access but are okay with object-storage semantics that may not fully match POSIX behavior. 
 Using the annotation `csi.storage.k8s.io/fstype: obsfs` mounts the bucket using the native OBS filesystem driver and is generally the more “OBS-native” approach; 
@@ -168,7 +168,7 @@ _-The Ingress API is no longer being developed, and will have no further changes
 :::note
 1️⃣ This feature makes use of the existence of [cert-manager](https://cert-manager.io/) in the cluster, but **does not** actively enforce it with an error. If no clusterIssuer is specified a valid certificate must be stored in a secret and the secret name must be provided in the tlsSecretName config.
 
-If you are targeting [Open Telekom Cloud](https://www.open-telekom-cloud.com/en), you might be interested in provisioning additionally the designated DNS solver webhook for Open Telekom Cloud. You can find it [here](https://github.com/akyriako/cert-manager-webhook-opentelekomcloud).
+If you are targeting [T Cloud Public](https://www.open-telekom-cloud.com/en), you might be interested in provisioning additionally the designated DNS solver webhook for T Cloud Public. You can find it [here](https://github.com/akyriako/cert-manager-webhook-opentelekomcloud).
 
 2️⃣ Although in official Typesense documentation under _Production Best Practices_ -> _Configuration_ is stated:
 
