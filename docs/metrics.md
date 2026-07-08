@@ -62,14 +62,14 @@ The exporter gathers various metrics from the Typesense /metrics.json endpoint, 
 ## Configuration
 
 | Variable           | Type   | Default | Required | Description                                    |
-| ------------------ | ------ | ------- | -------- | ---------------------------------------------- |
-| LOG_LEVEL          | int    | `0`     | No       | Log level                                      |
-| TYPESENSE_API_KEY  | string | —       | Yes      | API key for accessing each Typesense node      |
-| TYPESENSE_HOST     | string | —       | Yes      | Hostname or FQDN of the Typesense node         |
-| TYPESENSE_PORT     | uint   | `8108`  | No       | Port for Typesense REST/API Port               |
-| TYPESENSE_PROTOCOL | string | `http`  | No       | Protocol for Typesense API (`http` or `https`) |
-| TYPESENSE_CLUSTER  | string | —       | Yes      | Cluster identifier label for metrics           |
-| METRICS_PORT       | uint   | `8908`  | No       | Port on which `/metrics` is served             |
+| ------------------ | ------ | ------- | :------: | ---------------------------------------------- |
+| LOG_LEVEL          | int    | `0`     |          | Log level                                      |
+| TYPESENSE_API_KEY  | string | —       | 🔴       | API key for accessing each Typesense node      |
+| TYPESENSE_HOST     | string | —       | 🔴       | Hostname or FQDN of the Typesense node         |
+| TYPESENSE_PORT     | uint   | `8108`  |          | Port for Typesense REST/API Port               |
+| TYPESENSE_PROTOCOL | string | `http`  |          | Protocol for Typesense API (`http` or `https`) |
+| TYPESENSE_CLUSTER  | string | —       | 🔴       | Cluster identifier label for metrics           |
+| METRICS_PORT       | uint   | `8908`  |          | Port on which `/metrics` is served             |
 
 :::note
 All these values are automatically configured by the operator.

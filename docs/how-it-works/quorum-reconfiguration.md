@@ -59,3 +59,30 @@ A `StatefulSet` will be provisioned by the operator as next step of the reconcil
 ### 7. Evaluating Quorum
 
 The controller, in every reconciliation loop term, assesses the quorum's health by probing and collecting information about the state and the health of each member of the quorum (in our case for every `Pod` which represents a Typesense node). Based on the outcome, the controller devises an action plan for the next reconciliation loop. This process is detailed in the following section:
+
+## Why PodDisruptionBudgets are not used by the Operator?
+
+The Typesense Operator intentionally does **not** create a `PodDisruptionBudget` for the operator-managed Typesense `StatefulSet`.
+
+**This is a design decision.**
+
+The operator does not treat Kubernetes pod readiness as a simple container-health signal. Each Typesense pod includes a custom `PodReadinessGate`, and the operator updates that gate only after evaluating the underlying Typesense node and quorum state. A pod is considered `Ready` **only when the operator determines that the corresponding Typesense node is healthy and safe to serve traffic**.
+
+During quorum problems such as split brain, election deadlock, unavailable nodes, or failed recovery, the operator may deliberately mark pods as not ready, scale the `StatefulSet` down to one replica, update the nodes configuration, and under certain circumstances purge the pods as part of its automatic recovery flow.
+
+A `PodDisruptionBudget` works against this model.
+
+When the operator marks pods as not ready during recovery, a PDB would also see fewer healthy pods. As a result, `allowedDisruptions` would typically interfere exactly when the operator is trying to repair the cluster. This does not protect the quorum; instead, it blocks normal eviction-based operations such as node drains, cluster-autoscaler consolidation, and maintenance workflows.
+
+A PDB also does not protect against the operator’s own recovery actions. The operator deletes pods directly when purging or rebuilding quorum state, so a PDB would not provide meaningful protection at the point where recovery is actually happening.
+
+In practice, adding a PDB around the operator-managed `StatefulSet` can cause the opposite of the intended result:
+
+* node drains and autoscaler operations may become stuck;
+* quorum recovery may be delayed, blocked or sent to an eternal loop;
+* an allowed eviction can remove a peer at the wrong time and force another recovery cycle;
+* the operator and the PDB may end up fighting over availability semantics.
+
+For this reason, it is finally recommended **not to add a PDB to the Typesense `StatefulSet` managed by the operator** by yourselves.
+
+Availability should instead be handled through the operator’s quorum-aware reconciliation, appropriate replica count, anti-affinity, topology spread constraints, resource sizing, persistent storage, and careful node maintenance procedures.

@@ -43,10 +43,6 @@ No. TyKO, after version 0.3.0, is a very stable release suitable for production 
 
 Kindly review the [Disclaimer](/docs/getting-started#disclaimer) carefully once more. (aaaargh!!!)
 
-### What font sorcery is this?
-
-It's [JetBrains Mono](https://www.jetbrains.com/lp/mono/), the opensource typeface by JetBrains.
-
 ### Can we meet Tyko, the mascot?
 
 Nope-that can't do, he's a very busy fella!

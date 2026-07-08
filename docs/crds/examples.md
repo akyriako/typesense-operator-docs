@@ -79,10 +79,10 @@ As of **v0.3.6**, storage `accessMode` is introduced that supports `ReadWriteOnc
   
 :::warning
 
-1. When working with [Open Telekom Cloud Object Storage Service (OBS)](https://www.open-telekom-cloud.com/en/products-services/core-services/object-storage-service), [JuiceFS](https://juicefs.com/en/) and [Redis](https://redis.io/) **are not** required in order to mount S3 bucket in the Pods. The `everest-csi-provisioner` takes care of the whole life-cycle of provisioning and mount bucket as volumes
+1. When working with [T Cloud Public Object Storage Service (OBS)](https://www.open-telekom-cloud.com/en/products-services/core-services/object-storage-service), [JuiceFS](https://juicefs.com/en/) and [Redis](https://redis.io/) **are not** required in order to mount S3 bucket in the Pods. The `everest-csi-provisioner` takes care of the whole life-cycle of provisioning and mount bucket as volumes
 via annotations. You can skip this section entirely.
 
-2. When working with [Amazon S3](https://aws.amazon.com/s3/), [Redis](https://redis.io/) **is not** required, as Amazon S3 comes with is own metadata endpoints.
+1. When working with [Amazon S3](https://aws.amazon.com/s3/), [Redis](https://redis.io/) **is not** required, as Amazon S3 comes with is own metadata endpoints.
    
 :::
 
@@ -222,9 +222,9 @@ spec:
 This is by no means a production-ready Redis cluster nor a best-practice on how to deploy Redis on Kubernetes. It's just a quick spin of cluster in order to be able to work with JuiceFS.
 :::
 
-### Open Telekom Cloud OBS
+### T Cloud Public OBS
 
-If you are running on [Open Telekom Cloud](https://www.open-telekom-cloud.com/en), you can take advantage of the additional annotations field `csi.storage.k8s.io/fstype`
+If you are running on [T Cloud Public](https://www.open-telekom-cloud.com/en), you can take advantage of the additional annotations field `csi.storage.k8s.io/fstype`
 that controls how an S3 bucket is mounted into a Kubernetes pod.
 
 - Using `csi.storage.k8s.io/fstype: s3fs` mounts an [SFS Turbo, Scalable File System](https://www.open-telekom-cloud.com/en/products-services/core-services/scalable-file-service) bucket using the S3-compatible API, 
@@ -258,7 +258,7 @@ spec:
 :::note
 One big advantage of using these annotations is that the respective S3 buckets will be provisioned dynamically by the CSI itself. 
 
-For more information about configuring Open Telekom Cloud `StorageClass` consult
+For more information about configuring T Cloud Public `StorageClass` consult
 the [official documentation](https://docs.otc.t-systems.com/cloud-container-engine/umn/storage/storageclass.html).
 :::
 
