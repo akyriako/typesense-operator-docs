@@ -116,10 +116,10 @@ function Hero() {
           {/* <span className="tyko-hero__eyebrow">Typesense Kubernetes Operator</span> */}
           <h1 className="tyko-hero__title">
             Turnkey Typesense.<br />
-            <span className="tyko-hero__title-accent">Self-healing on Kubernetes.</span>
+            <span className="tyko-hero__title-accent">Highly available on Kubernetes.</span>
           </h1>
           <p className="tyko-hero__subtitle">
-            TyKO runs highly-available Typesense clusters for you — quorum recovery,
+            TyKO runs highly-available Typesense clusters for you with quorum recovery,
             rolling upgrades, and zero-downtime operations, all Kubernetes-native.
           </p>
           <div className="tyko-hero__cta">
