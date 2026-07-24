@@ -222,43 +222,99 @@ spec:
 This is by no means a production-ready Redis cluster nor a best-practice on how to deploy Redis on Kubernetes. It's just a quick spin of cluster in order to be able to work with JuiceFS.
 :::
 
-### T Cloud Public OBS
+### T Cloud Public
+
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
 
 If you are running on [T Cloud Public](https://www.open-telekom-cloud.com/en), you can take advantage of the additional annotations field `csi.storage.k8s.io/fstype`
 that controls how an S3 bucket is mounted into a Kubernetes pod.
 
-- Using `csi.storage.k8s.io/fstype: s3fs` mounts an [SFS Turbo, Scalable File System](https://www.open-telekom-cloud.com/en/products-services/core-services/scalable-file-service) bucket using the S3-compatible API, 
-which is useful when you want simple “filesystem-like” access but are okay with object-storage semantics that may not fully match POSIX behavior.
-- Using the annotation `csi.storage.k8s.io/fstype: obsfs` mounts the bucket using the native OBS filesystem driver and is generally the more “OBS-native” approach;
-it avoids some S3FS-specific limitations and is often preferred when you want better integration with OBS.
+<Tabs>
+  <TabItem value="obs" label="Object Storage Service" default>
+    Using the annotation `csi.storage.k8s.io/fstype: obsfs` mounts the bucket using the native OBS filesystem driver and is generally the more “OBS-native” approach;
+    it avoids some S3FS-specific limitations and is often preferred when you want better integration with OBS.
 
-```yaml
-apiVersion: ts.opentelekomcloud.com/v1alpha1
-kind: TypesenseCluster
-metadata:
-  labels:
-    app.kubernetes.io/name: typesense-operator
-    app.kubernetes.io/managed-by: kustomize
-  name: c-otc-3
-spec:
-  image: typesense/typesense:29.0
-  replicas: 3
-  storage:
-    storageClassName: csi-obs
-    accessMode: ReadWriteMany
-    annotations:
-      everest.io/obs-volume-type: STANDARD
-      csi.storage.k8s.io/fstype: s3fs
-      volume.beta.kubernetes.io/storage-provisioner: everest-csi-provisioner
-      csi.storage.k8s.io/node-publish-secret-name: otc-aksk
-      csi.storage.k8s.io/node-publish-secret-namespace: default
-      everest.io/csi.volume-name-prefix: c-otc-3
-```
+    ```yaml
+    apiVersion: v1
+    kind: Secret
+    metadata:
+      name: otc-aksk
+      namespace: default
+      labels:
+        secret.kubernetes.io/used-by: csi
+    type: cfe/secure-opaque
+    data:
+      access.key: "<access-key>"
+      secret.key: "<secret-key>"
+    ---
+    apiVersion: ts.opentelekomcloud.com/v1alpha1
+    kind: TypesenseCluster
+    metadata:
+      labels:
+        app.kubernetes.io/name: typesense-operator
+        app.kubernetes.io/managed-by: kustomize
+      name: c-otc-2
+    spec:
+      image: typesense/typesense:29.0
+      replicas: 3
+      storage:
+        storageClassName: csi-obs
+        accessMode: ReadWriteMany
+        annotations:
+          csi.storage.k8s.io/fstype: obsfs
+          volume.beta.kubernetes.io/storage-provisioner: everest-csi-provisioner
+          csi.storage.k8s.io/node-publish-secret-name: otc-aksk
+          csi.storage.k8s.io/node-publish-secret-namespace: default
+          everest.io/csi.volume-name-prefix: c-otc-2
+    ```
+  </TabItem>
+  <TabItem value="s3fs" label="Scalable File System (SFS Turbo) ">
+    Using `csi.storage.k8s.io/fstype: s3fs` mounts an [SFS Turbo, Scalable File System](https://www.open-telekom-cloud.com/en/products-services/core-services/scalable-file-service) bucket using the S3-compatible API, 
+    which is useful when you want simple “filesystem-like” access but are okay with object-storage semantics that may not fully match POSIX behavior.
+
+    ```yaml
+    apiVersion: v1
+    kind: Secret
+    metadata:
+      name: otc-aksk
+      namespace: default
+      labels:
+        secret.kubernetes.io/used-by: csi
+    type: cfe/secure-opaque
+    data:
+      access.key: "<access-key>"
+      secret.key: "<secret-key>"
+    ---
+    apiVersion: ts.opentelekomcloud.com/v1alpha1
+    kind: TypesenseCluster
+    metadata:
+      labels:
+        app.kubernetes.io/name: typesense-operator
+        app.kubernetes.io/managed-by: kustomize
+      name: c-otc-3
+    spec:
+      image: typesense/typesense:29.0
+      replicas: 3
+      storage:
+        storageClassName: csi-obs
+        accessMode: ReadWriteMany
+        annotations:
+          everest.io/obs-volume-type: STANDARD
+          csi.storage.k8s.io/fstype: s3fs
+          volume.beta.kubernetes.io/storage-provisioner: everest-csi-provisioner
+          csi.storage.k8s.io/node-publish-secret-name: otc-aksk
+          csi.storage.k8s.io/node-publish-secret-namespace: default
+          everest.io/csi.volume-name-prefix: c-otc-3
+    ```
+  </TabItem>
+</Tabs>
+
 
 :::note
 One big advantage of using these annotations is that the respective S3 buckets will be provisioned dynamically by the CSI itself. 
 
-For more information about configuring T Cloud Public `StorageClass` consult
+For more information about configuring a T Cloud Public `StorageClass` consult
 the [official documentation](https://docs.otc.t-systems.com/cloud-container-engine/umn/storage/storageclass.html).
 :::
 
