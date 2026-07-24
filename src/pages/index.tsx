@@ -240,7 +240,7 @@ function HomepageCta(): JSX.Element {
               className="button button--tertiary button--lg"
               to="/docs/adopters"
             >
-              Already running TyKO? Join the Adopters
+              Join the Adopters
             </Link>
           </div>
           
